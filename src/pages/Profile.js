@@ -87,10 +87,6 @@ function NewsletterPopup({ onClose }) {
                         value={body}
                         required
                         />
-    
-                        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
-                            Subscribe
-                        </button>
                     </form>
                     <div className="p-1">
                     <button onClick={onClose} className="mt-1  text-green-800">Close</button>
