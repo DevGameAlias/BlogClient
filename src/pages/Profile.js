@@ -29,20 +29,29 @@ const Profile = () =>{
 }
 
 
+const handleSubmit = (e)=>{
+    e.preventdefault();
+    fetch("http://localhost:3000/",{
+        method: "POST",
+        headers:{
+            "Content-type": "application/json"
+        }
+    })
+    .then()
+}
+
+
 function NewsletterPopup({ onClose }) {
     const [isVisible, setIsVisible] = useState(false); // State for visibility
     const [title, setTitle]= useState('') // set title
-    const [description, setDescription] = useState('')
-    const [body, setBody]= useState('')
+    const [description, setDescription] = useState('')// set description
+    const [body, setBody]= useState('') // set body 
     
     
     useEffect(() => {
         // Delay before making the popup visible
         const timer = setTimeout(() => {
             setIsVisible(true); // Show the popup after 500ms
-            setTimeout(() => {
-                setIsSliding(true); // set is slidding after becoming visable
-            }, 200);// delay
         }, 4000); // Delay before showing the popup
 
         return () => clearTimeout(timer); // Cleanup the timer
@@ -57,6 +66,7 @@ function NewsletterPopup({ onClose }) {
     };
 
     return (
+
         <div className={`fixed inset-0 flex items-center justify-center z-50  bg-opacity-50`}>
             {isVisible && (
                 <div
@@ -75,18 +85,22 @@ function NewsletterPopup({ onClose }) {
                         />
 
                         <input
-                        type = "description"
-                        placeholder="Description"
-                        value ={description}
-                        required
+                            type = "description"
+                            placeholder="Description"
+                            value ={description}
+                            required
                         />
 
                         <input
-                        type="text"
-                        placeholder="Body"
-                        value={body}
-                        required
+                            type="text"
+                            placeholder="Body"
+                            value={body}
+                            required
                         />
+                        
+                        <button type="submit" className="bg-blue-500 text-white p-2 rounded">
+                            Post
+                        </button>
                     </form>
                     <div className="p-1">
                     <button onClick={onClose} className="mt-1  text-green-800">Close</button>
