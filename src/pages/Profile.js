@@ -7,13 +7,19 @@ const Profile = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('') // handle error
+  const [success, setSuccess] = useState('') //handle success feedback
 
-  const StorySubmit = (e) => {
-
+  const StorySubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);// start loading state
+    setError(""); //reset previous errors
+    setSuccess(""); //Reset previous success messages
 
     try {
-      fetch("http://localhost:3000/stories", {
+        //created const for fetch and await
+     const response = await fetch("http://localhost:3000/stories", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -25,8 +31,24 @@ const Profile = () => {
           description: description,
         }),
       });
+      // conditional for error checking on creation of story
+      if(!response.ok){
+        throw new Error("failed to create story")
+      }
+      const result = await response.json();
+      setSuccess("Story Created")
+      console.log(result);
+      //Clearing input fields after submission
+      setTitle("")
+      setContent("")
+      setDescription("")
+
     } catch (err) {
-      console.log(err);
+      console.error(err);
+      setError("Unable to create story. Please try again")//setting error message
+    }
+    finally{
+        setLoading(false)
     }
   };
 
@@ -35,7 +57,7 @@ const Profile = () => {
     <>
       <div className="blog">{/* Insertn Blog Crud here */}</div>
       <div className="short-story">
-        return (
+        
         <div
           className={`fixed inset-0 flex items-center justify-center z-50  bg-opacity-50`}
         >
@@ -77,7 +99,7 @@ const Profile = () => {
             </div>
           }
         </div>
-        );
+        
       </div>
     </>
   );
