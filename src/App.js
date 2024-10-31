@@ -12,9 +12,10 @@ import Profile from './pages/Profile'; // Import your Profile component
 
 
 //Routes for the main application
+// "/blogCreation" renders the Profile component
 const  router= createBrowserRouter(createRoutesFromElements((
   <Route path="/" element={<AppLayout />} >
-     <Route path="blogCreation" element={<Profile />} />
+     <Route path="blogCreation" element={<Profile />} /> 
 
   </Route>
 )))
