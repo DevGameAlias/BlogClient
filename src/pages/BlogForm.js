@@ -7,7 +7,14 @@ const BlogForm = ({ onAddBlog }) => {
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
     const [tags, setTags] = useState('');
+    // TODO useState for blogs and editingBlogs
+    //TODO update the state to reflect the blog being edited, useEffect
 
+    //TODO fetch all blogs veiw list
+    //TODO fetch a blog by id 
+    //TODO try fetch for PUT (edit blog)
+    //TODO delete blog
+    
     //handleSubmit is called when the form is submitted, if title, content, and author are not empty it pass validation
     //(e.preventDefault() prevents the default behavior of the form ,(which would reload the page).)
     const handleSubmit = async (e) => {
@@ -21,6 +28,9 @@ const BlogForm = ({ onAddBlog }) => {
                 updatedAt: new Date(),
                 tags: tags.split(',').map(tag => tag.trim()),
             };
+
+
+
             try {
                 // sending a POST request to backend
                 const response = await fetch('http://localhost:3000/blog/blogs', {
@@ -32,7 +42,10 @@ const BlogForm = ({ onAddBlog }) => {
                 })
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
-                }
+                };
+
+            
+
                  // this is the new object called newBlog, as long as the validation passes
                 onAddBlog(newBlog);
                 setTitle('');
@@ -45,6 +58,7 @@ const BlogForm = ({ onAddBlog }) => {
         }
     };
     // component returns JSX layout for form (form is styled with tailwind)
+    // we may change this form to include 
     return ( 
         <div className="flex justify-center items-center min-h-screen">
             <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-md w-full max-w-sm">
