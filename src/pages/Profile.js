@@ -1,25 +1,24 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-
-
 const Profile = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('') // handle error
-  const [success, setSuccess] = useState('') //handle success feedback
+  const [loading, setLoading] = useState(false); // handles loading so no additional submits happen during fetch
+  const [error, setError] = useState(""); // handle error
+  const [success, setSuccess] = useState(""); //handle success feedback
 
   const StorySubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);// start loading state
+    setLoading(true); // start loading state
     setError(""); //reset previous errors
     setSuccess(""); //Reset previous success messages
 
     try {
-        //created const for fetch and await
-     const response = await fetch("http://localhost:3000/stories", {
+      console.log("Submitting story:", { title, content, description });
+      //created const for fetch and await
+      const response = await fetch("http://localhost:3000/stories", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -32,32 +31,28 @@ const Profile = () => {
         }),
       });
       // conditional for error checking on creation of story
-      if(!response.ok){
-        throw new Error("failed to create story")
+      if (!response.ok) {
+        throw new Error("failed to create story");
       }
       const result = await response.json();
-      setSuccess("Story Created")
+      setSuccess("Story Created");
       console.log(result);
       //Clearing input fields after submission
-      setTitle("")
-      setContent("")
-      setDescription("")
-
+      setTitle("");
+      setContent("");
+      setDescription("");
     } catch (err) {
       console.error(err);
-      setError("Unable to create story. Please try again")//setting error message
-    }
-    finally{
-        setLoading(false)
+      setError("Unable to create story. Please try again"); //setting error message
+    } finally {
+      setLoading(false);
     }
   };
 
-  
   return (
     <>
       <div className="blog">{/* Insertn Blog Crud here */}</div>
       <div className="short-story">
-        
         <div
           className={`fixed inset-0 flex items-center justify-center z-50  bg-opacity-50`}
         >
@@ -78,19 +73,30 @@ const Profile = () => {
                 />
 
                 <input
-                  type="description"
+                  type="text"
                   placeholder="Description"
                   value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   required
+                  className="border border-gray-300 p-2 mb-4 w-full"
                 />
-
-                <input type="text" placeholder="Content" value={content} required />
-
+                <textarea
+                  type="text"
+                  placeholder="Content"
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                  required
+                  className="border border-gray-300 p-2 mb-4 w-full"
+                />
+                {/* Button text changes based on loading state to inform progress of submission. Disabled while loading to prevent mulitple submissions */}
                 <button
                   type="submit"
-                  className="bg-blue-500 text-white p-2 rounded"
+                  className={`bg-blue-500 text-white p-2 rounded ${
+                    loading ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  disabled={loading}
                 >
-                  Post
+                  {loading ? "Posting..." : "Post"}
                 </button>
               </form>
               <div className="p-1">
@@ -99,7 +105,6 @@ const Profile = () => {
             </div>
           }
         </div>
-        
       </div>
     </>
   );
