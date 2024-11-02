@@ -16,6 +16,7 @@ import Profile from './pages/Profile'; // Import your Profile component
 const  router= createBrowserRouter(createRoutesFromElements((
   <Route path="/" element={<AppLayout />} >
      <Route path="blogCreation" element={<Profile />} /> 
+     <Route path="blogList" element={<Profile />} /> 
 
   </Route>
 )))
