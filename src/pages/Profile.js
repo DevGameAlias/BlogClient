@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import BlogForm from './BlogForm'; // Import the BlogForm component for submitting new blogs
 import { useState } from "react";
+import BlogListButton from './path/to/BlogListButton';
 
 const Profile = () =>{
     const[blogs, setBlogs] = useState([]);
