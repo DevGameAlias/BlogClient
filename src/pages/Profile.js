@@ -18,10 +18,12 @@ const Profile = () => {
     try {
       console.log("Submitting story:", { title, content, description });
       //created const for fetch and await
+      const token = document.cookie.split(';').find(row => row.startsWith('token=')).split('=')[1];
       const response = await fetch("http://localhost:3000/stories", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
 
         body: JSON.stringify({
