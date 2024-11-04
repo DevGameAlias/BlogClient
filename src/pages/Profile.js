@@ -1,5 +1,7 @@
+//Profiile
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import StorySubmit from "./SubmitStory";
 
 const Profile = () => {
   const [title, setTitle] = useState("");
@@ -8,46 +10,6 @@ const Profile = () => {
   const [loading, setLoading] = useState(false); // handles loading so no additional submits happen during fetch
   const [error, setError] = useState(""); // handle error
   const [success, setSuccess] = useState(""); //handle success feedback
-
-  const StorySubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true); // start loading state
-    setError(""); //reset previous errors
-    setSuccess(""); //Reset previous success messages
-
-    try {
-      console.log("Submitting story:", { title, content, description });
-      //created const for fetch and await
-      const response = await fetch("http://localhost:3000/stories", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-
-        body: JSON.stringify({
-          title: title,
-          content: content,
-          description: description,
-        }),
-      });
-      // conditional for error checking on creation of story
-      if (!response.ok) {
-        throw new Error("failed to create story");
-      }
-      const result = await response.json();
-      setSuccess("Story Created");
-      console.log(result);
-      //Clearing input fields after submission
-      setTitle("");
-      setContent("");
-      setDescription("");
-    } catch (err) {
-      console.error(err);
-      setError("Unable to create story. Please try again"); //setting error message
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>
@@ -62,7 +24,20 @@ const Profile = () => {
             >
               <h2 className="text-lg font-bold mb-4">test</h2>
 
-              <form onSubmit={StorySubmit}>
+              <form
+                onSubmit={(e)=>StorySubmit(
+                  e,
+                  title,
+                  content,
+                  description,
+                  setTitle,
+                  setContent,
+                  setDescription,
+                  setLoading,
+                  setError,
+                  setSuccess
+                )}
+              >
                 <input
                   type="text"
                   placeholder="Title"
