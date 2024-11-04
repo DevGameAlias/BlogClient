@@ -1,4 +1,4 @@
-// BlogForm.js
+// BlogForm.js 
 import React, { useState } from 'react';
 
 // onAddBlog is the prop that will be called on when new blog is submitted
@@ -7,13 +7,6 @@ const BlogForm = ({ onAddBlog }) => {
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
     const [tags, setTags] = useState('');
-    // TODO useState for blogs and editingBlogs
-    //TODO update the state to reflect the blog being edited, useEffect
-
-    //TODO fetch all blogs veiw list
-    //TODO fetch a blog by id 
-    //TODO try fetch for PUT (edit blog)
-    //TODO delete blog
     
     //handleSubmit is called when the form is submitted, if title, content, and author are not empty it pass validation
     //(e.preventDefault() prevents the default behavior of the form ,(which would reload the page).)
@@ -42,10 +35,46 @@ const BlogForm = ({ onAddBlog }) => {
                 })
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
-                };
+                }
+                const updateBlog = async (blogId, updatedBlog) => {
+                    try {
+                        //sending PUT request to update blog
+                        const response = await fetch(`http://localhost:3000/blog/blogs/${blogId}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(updatedBlog),
+                        });
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        const data = await response.json();
+                        console.log('Blog updated successfully:', data);
+                    } catch (error) {
+                        console.error('Error updating blog:', error);
+                    } finally {
 
-            
-
+                    }
+                };     
+                const fetchBlogs = async () => {
+                    try {
+                        const response = await fetch('http://localhost:3000/blog/blogs', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        const blogs = await response.json();
+                        console.log('Fetched blogs:', blogs);
+                        return blogs;
+                    } catch (error) {
+                        console.error('Error fetching blogs:', error);
+                    }
+                };                           
                  // this is the new object called newBlog, as long as the validation passes
                 onAddBlog(newBlog);
                 setTitle('');
@@ -62,7 +91,7 @@ const BlogForm = ({ onAddBlog }) => {
     return ( 
         <div className="flex justify-center items-center min-h-screen">
             <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow-md w-full max-w-sm">
-                <h2 className="text-xl font-semibold mb-4 text-center">Add a New Blog</h2> 
+                <h2 className="text-xl font-semibold mb-4 text-center bg-blue-100">Add a New Blog</h2> 
                 <div className="mb-4"> {/*all the code from here down is the input feilds */}
                     <label className="block text-sm font-medium text-gray-700">Title:</label>
                     <input
