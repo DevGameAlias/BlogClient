@@ -133,7 +133,7 @@ const BlogForm = ({ onAddBlog }) => {
                 {/* Submit button styled with tailwind */}
                 <button
                     type="submit"
-                    className="w-full bg-yellow-900 shadow-md text-orange-100 py-2 px-6 rounded-md hover:bg-orange-600 transition duration-500"
+                    className="w-full bg-yellow-900 shadow-md text-orange-100 py-2 px-6 rounded-md hover:bg-orange-950 transition duration-500"
                 >
                     Add Blog
                 </button>
