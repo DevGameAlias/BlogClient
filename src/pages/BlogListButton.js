@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const BlogListButton = () => {
     const [blogs, setBlogs] = useState([]);
@@ -14,8 +14,6 @@ const BlogListButton = () => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Add any authentication headers if required
-                    // 'Authorization': 'Bearer your-token'
                 },
             });
             

@@ -8,12 +8,12 @@ import {
 import AppLayout from "./appLayout/AppLayout";
 import Profile from './pages/Profile';
 import AboutPage from "./pages/AboutPage";
-import BlogListButton from './components/BlogList'; // Make sure this path matches your file structure
+import BlogListButton from './pages/BlogListButton'; // Make sure this path matches your file structure
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<AppLayout />}>
-    <Route path="blogCreation" element={<Profile />} />
-    <Route path="blogList" element={<BlogListButton />} />   
+    <Route path="/blogCreation" element={<Profile />} />
+    <Route path="/blogList" element={<BlogListButton />} />   
     <Route path="/about" element={<AboutPage />} />
   </Route>
 ));
