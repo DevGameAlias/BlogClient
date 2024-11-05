@@ -2,6 +2,7 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import StorySubmit from "./SubmitStory";
+// import StoryDelete from "./DeleteStory";
 
 const Profile = () => {
   const [title, setTitle] = useState("");
