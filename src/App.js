@@ -10,6 +10,7 @@ import Profile from './pages/Profile';
 import AboutPage from "./pages/AboutPage";
 import BlogListButton from './pages/BlogListButton'; // Make sure this path matches your file structure
 import HomePage from './pages/Home';
+import BlogPage from "./pages/BlogPage";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<AppLayout />}>
@@ -17,6 +18,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/blogList" element={<BlogListButton />} />   
     <Route path="/about" element={<AboutPage />} />
     <Route path="/homePage" element={<HomePage />} />
+    <Route path="/blogPage" element={<BlogPage />} />
   </Route>
 ));
 

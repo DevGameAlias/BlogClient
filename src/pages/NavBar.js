@@ -21,7 +21,7 @@ const NavBar = () => {
             <NavLink to="/about" className="text-orange-100 hover:text-blue-500">
               About
             </NavLink>
-            <NavLink to="/" className="text-orange-100 hover:text-blue-500">
+            <NavLink to="/blogPage" className="text-orange-100 hover:text-blue-500">
               Blog
             </NavLink>
           </div>
