@@ -1,5 +1,8 @@
+//Profiile
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import StorySubmit from "./SubmitStory";
+// import StoryDelete from "./DeleteStory";
 
 const Profile = () => {
   const [title, setTitle] = useState("");
@@ -9,6 +12,7 @@ const Profile = () => {
   const [error, setError] = useState(""); // handle error
   const [success, setSuccess] = useState(""); //handle success feedback
 
+<<<<<<< HEAD
   const StorySubmit = async (e) => {
     e.preventDefault();
     setLoading(true); // start loading state
@@ -51,6 +55,8 @@ const Profile = () => {
     }
   };
 
+=======
+>>>>>>> a28bfc208fbf33111fc2c9d4fb2713f85384681a
   return (
     <>
       <div className="blog">{/* Insertn Blog Crud here */}</div>
@@ -64,7 +70,20 @@ const Profile = () => {
             >
               <h2 className="text-lg font-bold mb-4">test</h2>
 
-              <form onSubmit={StorySubmit}>
+              <form
+                onSubmit={(e)=>StorySubmit(
+                  e,
+                  title,
+                  content,
+                  description,
+                  setTitle,
+                  setContent,
+                  setDescription,
+                  setLoading,
+                  setError,
+                  setSuccess
+                )}
+              >
                 <input
                   type="text"
                   placeholder="Title"
