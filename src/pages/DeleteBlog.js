@@ -6,6 +6,9 @@ const DeleteBlog = ({ blogId, onDelete }) => {
         try {
             const response = await fetch(`http://localhost:3000/blog/blogs/${blogId}`, {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
             if (!response.ok) throw new Error('Network response was not ok');
 
