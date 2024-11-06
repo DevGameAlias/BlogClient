@@ -12,7 +12,7 @@ const Profile = () => {
   const [error, setError] = useState(""); // handle error
   const [success, setSuccess] = useState(""); //handle success feedback
 
-<<<<<<< HEAD
+
   const StorySubmit = async (e) => {
     e.preventDefault();
     setLoading(true); // start loading state
@@ -55,8 +55,6 @@ const Profile = () => {
     }
   };
 
-=======
->>>>>>> a28bfc208fbf33111fc2c9d4fb2713f85384681a
   return (
     <>
       <div className="blog">{/* Insertn Blog Crud here */}</div>
