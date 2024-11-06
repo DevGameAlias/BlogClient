@@ -8,6 +8,7 @@ import {
 import AppLayout from "./appLayout/AppLayout";
 import Profile from './pages/Profile'; // Import your Profile component
 import AboutPage from "./pages/AboutPage";
+import Login from "./components/Login";
 
 // Routes for the main application
 // "/blogCreation" renders the Profile component
@@ -15,7 +16,9 @@ const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<AppLayout />}>
     <Route path="blogCreation" element={<Profile />} />
     <Route path="blogList" element={<Profile />} />   
-    <Route path="/about" element={<AboutPage />} />
+    <Route path="about" element={<AboutPage />} />
+    <Route path="login" element={<Login />}/>
+
   </Route>
 ));
 
