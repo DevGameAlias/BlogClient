@@ -13,6 +13,9 @@ const BlogPage = () => {
             throw new Error('Failed to fetch blogs');
           }
           const blogsData = await response.json();
+          
+          // sort blogs by creation date in decending order
+          const sortedBlogs = blogsData.sort((a, b) => new Date(b.created) - new Date(a.created));
           setBlogs(blogsData);
         } catch (error) {
           setError('Failed to fetch blogs');
