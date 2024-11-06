@@ -5,60 +5,85 @@ const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null);
 
-  // Fetch blogs when the component mounts
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/blog/blogs', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch blogs');
+      const fetchBlogs = async () => {
+        try {
+          const response = await fetch('http://localhost:3000/blog/blogs');
+          if (!response.ok) {
+            throw new Error('Failed to fetch blogs');
+          }
+          const blogsData = await response.json();
+          setBlogs(blogsData);
+        } catch (error) {
+          setError('Failed to fetch blogs');
+          console.error(error);
         }
+      };
+      useEffect(() => {
+        fetchBlogs();
+      }, []);
 
-        const fetchedBlogs = await response.json();
-        setBlogs(fetchedBlogs); // Set the fetched blogs to the state
-      } catch (error) {
-        setError(error.message); // Set the error message if fetch fails
-        console.error('Error fetching blogs:', error);
-      }
-    };
-
-    fetchBlogs(); // Call the fetch function
-  }, []); // Empty dependency array to fetch only once when the component mounts
+  // Function to limit the content to the first 30 words
+  const truncateContent = (content, wordLimit = 30) => {
+    const words = content.split(' ');
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : content;
+  };
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">All Blogs</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100">
+      <div className='w-full max-w-4xl px-4'>
+        {error && <p className="text-red-500">{error}</p>}
+        <div className="space-y-6">
+        {blogs.map((blog) => (
+            <div key={blog.id} className="bg-white p-6 rounded-lg shadow-md">
+              <h2 className="text-xl font-semibold">{blog.title}</h2>
+              <p className="text-sm text-gray-500 mb-2">By: {blog.author} | {new Date(blog.created).toLocaleDateString()}</p>
+              {/* Display a truncated preview of the blog content */}
+              <p className="text-gray-700">{truncateContent(blog.content)}</p>
 
-      {/* Display error message if fetch fails */}
-      {error && <p className="text-red-500">{error}</p>}
-
-      {/* Display the list of blogs */}
-      <div>
-        {blogs.length > 0 ? (
-          blogs.map((blog) => (
-            <div key={blog.id} className="mb-6 border-b pb-4">
-              <h2 className="text-2xl font-semibold">{blog.title}</h2>
-              <p className="text-gray-700">{blog.content.slice(0, 100)}...</p>
-              <Link
-                to={`/blog/${blog.id}`} // Link to the detailed blog page
-                className="text-blue-500 hover:text-blue-700 mt-2 inline-block"
-              >
-                Read More
-              </Link>
-            </div>
-          ))
-        ) : (
-          <p>No blogs available</p>
-        )}
+              {/* Toggle button to reveal full content */}
+              <FullContentToggle content={blog.content} />
       </div>
+        ))}
+     </div>
+    </div>
+   </div>
+  );
+};
+
+// Component to handle toggling of full content
+const FullContentToggle = ({ content }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleToggle = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  return (
+    <div>
+      {!isExpanded && (
+        <button
+          onClick={handleToggle}
+          className="text-blue-500 hover:text-blue-700 mt-2"
+        >
+          Read More
+        </button>
+      )}
+      
+      {isExpanded && (
+        <div>
+          <p className="text-gray-700 mt-2">{content}</p>
+          <button
+            onClick={handleToggle}
+            className="text-blue-500 hover:text-blue-700 mt-2"
+          >
+            Read Less
+          </button>
+        </div>
+      )}
     </div>
   );
 };
+
 
 export default BlogPage;
