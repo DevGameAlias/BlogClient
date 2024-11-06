@@ -1,15 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import clientImage from '../assets/MikeN.png'; 
 
 
 const HomePage = () => {
+
+    const [blogs, setBlogs] = useState([]);
+    const [error, setError] = useState(null);
+
   const book = {
     title: "God, Country, Family: Three Short Stories", // book title
     description: "Three Stories pulling you in with questions of belief, War, Tears and Laugher  ...", // short description of book
     coverImageUrl: "https://m.media-amazon.com/images/I/714MiqrkPhL._SL1500_.jpg", // book cover image URL
     amazonLink: "https://a.co/d/8bZOQID"  // Link to Amazon book page
   };
+
+  // Function to fetch the most recent blogs
+  const fetchBlogs = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/blog/blogs'); // Replace with your API endpoint
+      if (!response.ok) {
+        throw new Error('Failed to fetch blogs');
+      }
+      const blogsData = await response.json();
+      // Sort the blogs by creation date (descending) and take the 2 most recent
+      const sortedBlogs = blogsData.sort((a, b) => new Date(b.created) - new Date(a.created));
+      setBlogs(sortedBlogs.slice(0, 2)); // Take the first 2 blogs
+    } catch (error) {
+      setError('Failed to fetch blogs');
+      console.error(error);
+    }
+  };
+
+  // Fetch the blogs when the component mounts
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
 
   return (
     <div className="flex flex-col items-center min-h-screen  bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 transition-all duration-1000">
@@ -67,6 +94,28 @@ const HomePage = () => {
         </Link>
       </section>
 
+    {/* Latest Blogs Section */}
+    <section className="w-full max-w-4xl px-6 py-12">
+        <h3 className="text-3xl font-semibold text-center mb-8">Latest Blog Posts</h3>
+        <div className="space-y-6">
+          {error && <p className="text-red-500 text-center">{error}</p>}
+          {blogs.map((blog) => (
+            <div key={blog.id} className="bg-white p-6 rounded-lg shadow-md">
+              <h4 className="text-2xl font-serif font-semibold text-center mb-4">{blog.title}</h4>
+              <p className="text-gray-500 text-sm text-center mb-4">
+                By {blog.author} | {new Date(blog.created).toLocaleDateString()}
+              </p>
+              <p className="text-lg text-gray-800">{blog.content.slice(0, 150)}...</p>
+              <Link
+                to="/blogPage" // path to blogPage
+                className="text-blue-500 hover:text-blue-700 mt-4 block text-center"
+              >
+                Read More
+              </Link>
+              </div>
+          ))}
+    </div>
+    </section>
     </div>
   );
 }
