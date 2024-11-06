@@ -1,10 +1,10 @@
 import { NavLink, Outlet } from "react-router-dom";
-
+import React from "react";
 // Imports
 import NavBar from "../pages/NavBar";
 
 // This component serves as the main layout for the application, wrapping around other routes and providing a consisten UI
-function appLayout() {
+function AppLayout() {
   return (
     <>
       {/*NavBar Component  */}
@@ -14,4 +14,4 @@ function appLayout() {
     </>
   );
 }
-export default appLayout;
+export default AppLayout;
