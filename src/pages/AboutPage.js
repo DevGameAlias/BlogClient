@@ -7,6 +7,8 @@
 // AboutPage.js
 import React from 'react';
 
+import clientImage from '../assets/MikeN.png'; 
+
 
 const AboutPage = () => {
     return (
@@ -16,7 +18,7 @@ const AboutPage = () => {
                 <h1 className=" font-serif text-6xl font-thin mb-10 ">About Mike.N </h1>
                 {/*Display client image*/}
               <img
-             src={"https://via.placeholder.com/300" }
+             src={clientImage}
              alt="client provided image" 
              className=" w-64 h-64  object-cover shadow-lg mb-10" // Tailwind classes for styling
              /> 
