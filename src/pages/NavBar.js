@@ -15,7 +15,7 @@ const NavBar = () => {
           {/* Space between navigation link */}
           <div className="space-x-4">
             {/* TODO update navbar with proper links once available */}
-            <NavLink to="/" className="text-orange-100 hover:text-blue-500">
+            <NavLink to="/homePage" className="text-orange-100 hover:text-blue-500">
               Home
             </NavLink>
             <NavLink to="/about" className="text-orange-100 hover:text-blue-500">
