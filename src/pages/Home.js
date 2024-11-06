@@ -15,7 +15,7 @@ const Book = () => {
       {/* Book Cover Image */}
       <div className="flex justify-center mb-4">
         <img 
-          src={book.coverImageUrl} 
+          src={book.coverImageUrl || '/path/to/placeholder.jpg'} // Fallback image in case the URL is broken} 
           alt={book.title} 
           className="w-48 h-72 object-cover rounded-lg"
         />
@@ -28,8 +28,8 @@ const Book = () => {
       <div className="flex justify-center">
         <a 
           href={book.amazonLink} 
-          target="_blank" 
-          rel="noopener noreferrer" 
+          target="_blank" // opens the link in a new tab
+          rel="noopener noreferrer" // this ensures that the new tab is secure and doesn’t allow the new page to have access to the original page
           className="px-6 py-2 bg-yellow-500 text-white text-lg rounded-md hover:bg-yellow-600 transition-all duration-200"
         >
           Buy on Amazon
