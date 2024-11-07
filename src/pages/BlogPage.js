@@ -66,7 +66,7 @@ const BlogPage = () => {
             >
               Close
             </button>
-            <h2 className="text-4xl font-bold text-teal-600 mb-4">{selectedBlog.title}</h2>
+            <h2 className="text-4xl font-bold text-yellow-950 mb-4">{selectedBlog.title}</h2>
 
             {/* Add a decorative underline like a book title line */}
             <div className="w-full border-t-4 border-orange-950 mb-6"></div> {/* Line under title */}
