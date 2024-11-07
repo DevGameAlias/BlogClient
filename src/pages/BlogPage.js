@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null);
-
 
       const fetchBlogs = async () => {
         try {
@@ -25,13 +23,11 @@ const BlogPage = () => {
       useEffect(() => {
         fetchBlogs();
       }, []);
-
   // Function to limit the content to the first 30 words
   const truncateContent = (content, wordLimit = 30) => {
     const words = content.split(' ');
     return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : content;
   };
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100">
       <div className='w-full max-w-4xl px-4'>
@@ -43,7 +39,6 @@ const BlogPage = () => {
               <p className="text-sm text-gray-500 mb-2">By: {blog.author} | {new Date(blog.created).toLocaleDateString()}</p>
               {/* Display a truncated preview of the blog content */}
               <p className="text-gray-700">{truncateContent(blog.content)}</p>
-
               {/* Toggle button to reveal full content */}
               <FullContentToggle content={blog.content} />
       </div>
@@ -53,15 +48,12 @@ const BlogPage = () => {
    </div>
   );
 };
-
 // Component to handle toggling of full content
 const FullContentToggle = ({ content }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
   };
-
   return (
     <div>
       {!isExpanded && (
@@ -87,6 +79,5 @@ const FullContentToggle = ({ content }) => {
     </div>
   );
 };
-
 
 export default BlogPage;
