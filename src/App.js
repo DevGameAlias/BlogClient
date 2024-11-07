@@ -16,7 +16,7 @@ import StoryCreation from "./components/StoryCreation";
 import HomePage from './pages/Home';
 import BlogPage from "./pages/BlogPage";
 import StoryList from './components/StoryList'; // Import the new StoryList component
-
+import ScrollToTop from "./components/ScrollToTop";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<AppLayout />}>
@@ -35,10 +35,13 @@ const router = createBrowserRouter(createRoutesFromElements(
 ));
 
 function App() {
-
-  return <RouterProvider router={router} />
-  
-
+  return (
+    <RouterProvider router={router}>
+      {/* ScrollToTop should be here to listen for route changes */}
+      <ScrollToTop />
+      {/* Your main layout or components will go here */}
+    </RouterProvider>
+  );
 }
 
 export default App;
