@@ -87,7 +87,7 @@ const Profile = () => {
                   <BlogListButton /> {/* Add the BlogListButton component here */}
               </div>
           </div>
-  // Short story component that needs to be moved into components and called into profile   
+  {/* // Short story component that needs to be moved into components and called into profile    */}
   <>
     <div className="blog">{/* Insertn Blog Crud here */}</div>
     <div className="short-story">
