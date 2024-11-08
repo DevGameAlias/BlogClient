@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import BlogForm from './BlogForm'; // Import the BlogForm component for submitting new blogs
-import BlogListButton from '../pages/BlogListButton'; // Adjust the path if necessary
+import BlogListButton from '../components/BlogListButton'; // Adjust the path if necessary
 import StorySubmit from "./SubmitStory";
 // import StoryDelete from "./DeleteStory";
 
