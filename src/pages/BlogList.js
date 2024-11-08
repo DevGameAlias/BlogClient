@@ -50,7 +50,7 @@ const BlogList = () => {
   return (
     <div className="p-4 space-y-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold text-brown-800">Blog Posts</h1>
+        <h1 className="text-2xl font-bold text-yellow-800">Blog Posts</h1>
         {!isAddingNew && (
           <button
             onClick={() => setIsAddingNew(true)}
@@ -62,7 +62,7 @@ const BlogList = () => {
       </div>
 
       {isAddingNew && (
-        <div className="border-2 rounded-lg p-4 bg-brown-50 border-brown-200 shadow-md mb-4">
+        <div className="border-2 rounded-lg p-4 bg-yellow-50 border-yellow-200 shadow-md mb-4">
           <input
             type="text"
             value={newBlog.title}
@@ -97,7 +97,7 @@ const BlogList = () => {
       {blogs.map((blog) => (
         <div
           key={blog.id}
-          className="border-2 rounded-lg p-4 bg-brown-50 border-brown-200 shadow-md transition hover:shadow-lg"
+          className="border-2 rounded-lg p-4 bg-yellow-50 border-yellow-200 shadow-md transition hover:shadow-lg"
         >
           {editingId === blog.id ? (
             <>
@@ -131,7 +131,7 @@ const BlogList = () => {
           ) : (
             <>
               <div className="flex justify-between items-start">
-                <h2 className="text-xl font-semibold text-brown-800 mb-2">{blog.title}</h2>
+                <h2 className="text-xl font-semibold text-yellow-800 mb-2">{blog.title}</h2>
                 <div className="flex gap-2">
                   <button
                     onClick={() => handleEdit(blog)}
@@ -147,7 +147,7 @@ const BlogList = () => {
                   </button>
                 </div>
               </div>
-              <p className="text-brown-700">{blog.content}</p>
+              <p className="text-yellow-700">{blog.content}</p>
             </>
           )}
         </div>
