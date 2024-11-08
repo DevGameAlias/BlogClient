@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from 'react';
-
+import DeleteStory from '../pages/DeleteStory2'
+//this is what im testing the delete in 
 
 const StoryList = () => {
     const [stories, setStories] = useState([]);
@@ -31,6 +32,7 @@ return (
           <div key={story._id} className="bg-white border border-gray-300 rounded-lg p-5 shadow-md w-72">
             <h2 className="text-xl font-semibold">{story.title}</h2>
             <p className="text-gray-700">{story.content}</p>
+            {/* <button onClick={} */}
           </div>
         ))}
       </div>
