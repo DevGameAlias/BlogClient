@@ -33,8 +33,8 @@ const BlogListButton = () => {
             </button>
             {error && <p className="text-red-500 mt-2">{error}</p>}
             <ul className="mt-4">
-                {blogs.map((blog) => (
-                    <li key={blog.id} className="mb-2">
+                {blogs.map((blog, index) => (
+                    <li key={blog.id || index} className="mb-2">
                         <h3 className="text-lg font-semibold">{blog.title}</h3>
                         <p>{blog.content}</p>
                     </li>
