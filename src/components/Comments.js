@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import CommentSection from '../components/Comments';
+import CommentSection from '../components/Comments';  // Import CommentSection component
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null);
-  const [selectedBlog, setSelectedBlog] = useState(null); // state to track selected blog
-  const [isClosing, setIsClosing] = useState(false); // state to track closing effect
-  const [newComment, setNewComment] = useState(""); // state to track new comment input
-  const [comments, setComments] = useState([]); // state to track comments for selected blog
+  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [isClosing, setIsClosing] = useState(false);
+  const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState([]);
 
+  // Fetch blogs from API
   const fetchBlogs = async () => {
     try {
-      const response = await fetch('http://localhost:3000/blog/blogs'); // Replace with your API endpoint
+      const response = await fetch('http://localhost:3000/blog/blogs');
       if (!response.ok) {
         throw new Error('Failed to fetch blogs');
       }
       const blogsData = await response.json();
-      // Sort the blogs by creation date (descending)
       const sortedBlogs = blogsData.sort((a, b) => new Date(b.created) - new Date(a.created));
       setBlogs(sortedBlogs);
     } catch (error) {
@@ -26,28 +25,22 @@ const BlogPage = () => {
     }
   };
 
+  // Fetch comments for a selected blog
   const fetchComments = async (blogId) => {
     try {
       const response = await fetch(`http://localhost:3000/comments/blog/${blogId}`);
-      
       if (!response.ok) {
         throw new Error('Failed to fetch comments');
       }
-      
       const commentsData = await response.json();
-      
-      console.log('Fetched comments:', commentsData);  // Check the fetched data
-      
-      // Ensure that commentsData is an array
       if (Array.isArray(commentsData)) {
-        setComments(commentsData); // Set the comments state if it's an array
+        setComments(commentsData);
       } else {
-        console.error('Fetched comments are not an array', commentsData);
-        setComments([]); // In case it's not an array, set comments to an empty array
+        setComments([]); // Reset comments if the response is not an array
       }
     } catch (error) {
+      setComments([]); // Handle errors
       console.error('Error fetching comments:', error);
-      setComments([]); // Handle the error and reset comments to empty array
     }
   };
 
@@ -55,19 +48,9 @@ const BlogPage = () => {
     fetchBlogs();
   }, []);
 
-  const truncateContent = (content, wordLimit = 30) => {
-    const words = content.split(' ');
-    return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : content;
-  };
-
   const handleReadMore = (blog) => {
-    console.log('Selected Blog:', blog);  // Log the entire blog object to check the structure
-    if (!blog._id) {
-      console.error('Blog _id is missing!');
-      return;  // Prevent fetch if _id is missing
-    }
     setSelectedBlog(blog);
-    fetchComments(blog._id); // Use _id instead of id
+    fetchComments(blog._id); // Use _id for consistency with backend
   };
 
   const closeFullView = () => {
@@ -85,45 +68,46 @@ const BlogPage = () => {
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
-    if (newComment.trim() === "") return; // Don't submit if the comment is empty
+    if (newComment.trim() === "") return;
     if (!selectedBlog || !selectedBlog._id) {
       console.error("No blog selected or blog ID is missing");
       return;
     }
-   
-  const author = "Anonymous"; // Default author if not provided (or use logged-in user's name)
-  
-  const newCommentData = {
-    body: newComment,
-    author: author,
-    blogId: selectedBlog._id, // Add the blogId to tie the comment to the selected blog
-  };
 
-  // Optimistically add the new comment to the list
-  setComments([...comments,newCommentData]); // Temporary ID
-  setNewComment(""); // Clear the comment input field
+    const newCommentData = {
+      body: newComment,
+      author: "Anonymous", // Or use a logged-in user's name
+      blogId: selectedBlog._id,
+    };
+
+    // Optimistically add the new comment
+    const temporaryComment = { ...newCommentData, id: Date.now() }; // Use timestamp as temporary ID
+    setComments([temporaryComment, ...comments]);
+    setNewComment("");
 
     try {
-      const response = await fetch(`http://localhost:3000/comments`, {
+      const response = await fetch('http://localhost:3000/comments', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newCommentData),
       });
-        
-    
+
       if (!response.ok) {
         throw new Error('Failed to submit comment');
       }
 
-      // After successful comment submission, fetch the updated list of comments
+      // After successful submission, fetch the updated list of comments
       const updatedComments = await response.json();
       setComments(updatedComments);
-      setNewComment(""); // Clear the comment input field
+      setNewComment(""); // Reset the comment input field
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const truncateContent = (content, wordLimit = 30) => {
+    const words = content.split(' ');
+    return words.length > wordLimit ? words.slice(0, wordLimit).join(' ') + '...' : content;
   };
 
   return (
@@ -131,7 +115,6 @@ const BlogPage = () => {
       <div className="w-full max-w-6xl px-4">
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {/* If there's a selected blog, show it in full-screen mode */}
         {selectedBlog ? (
           <div
             className={`fixed top-0 left-0 w-full h-full bg-orange-50 z-50 flex flex-col justify-start items-center p-8 overflow-auto shadow-2xl rounded-lg transition-all duration-500 ease-in-out transform scale-100 ${
@@ -151,40 +134,13 @@ const BlogPage = () => {
               <p>{selectedBlog.content}</p>
             </div>
 
-            {/* Comment Section */}
-            <div className="mt-8 w-full max-w-3xl">
-              <h3 className="text-2xl font-semibold mb-4">Comments</h3>
-
-              {/* Display existing comments */}
-              <div className="space-y-4 mb-6">
-  {Array.isArray(comments) && comments.map((comment) => (
-    <div key={comment.id} className="bg-white p-4 rounded-lg shadow-sm">
-      <p className="text-gray-800">{comment.body}</p>
-      <p className="text-sm text-gray-500 mt-2">
-        By: {comment.author} | {new Date(comment.created).toLocaleDateString()}
-      </p>
-    </div>
-  ))}
-
-              </div>
-
-              {/* Comment Form */}
-              <form onSubmit={handleCommentSubmit} className="flex flex-col space-y-4">
-                <textarea
-                  value={newComment}
-                  onChange={handleCommentChange}
-                  placeholder="Write your comment..."
-                  rows="4"
-                  className="p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
-                <button
-                  type="submit"
-                  className="bg-teal-500 text-white py-2 px-4 rounded-md hover:bg-teal-600 transition-colors duration-300"
-                >
-                  Post Comment
-                </button>
-              </form>
-            </div>
+            {/* Pass props to the CommentSection */}
+            <CommentSection 
+              comments={comments}
+              newComment={newComment}
+              handleCommentChange={handleCommentChange}
+              handleCommentSubmit={handleCommentSubmit}
+            />
           </div>
         ) : (
           <div className="flex flex-wrap justify-center gap-8">
@@ -214,3 +170,4 @@ const BlogPage = () => {
 };
 
 export default BlogPage;
+
