@@ -27,14 +27,26 @@ const BlogPage = () => {
 
   const fetchComments = async (blogId) => {
     try {
-      const response = await fetch(`http://localhost:3000/blog/comments/${blogId}`); // API to fetch comments for the blog
+      const response = await fetch(`http://localhost:3000/comments/blog/${blogId}`);
+      
       if (!response.ok) {
         throw new Error('Failed to fetch comments');
       }
-      const commentsData = await response.json();  // Correct variable name
-      setComments(commentsData);  // Set the comments data
+      
+      const commentsData = await response.json();
+      
+      console.log('Fetched comments:', commentsData);  // Check the fetched data
+      
+      // Ensure that commentsData is an array
+      if (Array.isArray(commentsData)) {
+        setComments(commentsData); // Set the comments state if it's an array
+      } else {
+        console.error('Fetched comments are not an array', commentsData);
+        setComments([]); // In case it's not an array, set comments to an empty array
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Error fetching comments:', error);
+      setComments([]); // Handle the error and reset comments to empty array
     }
   };
 
@@ -48,8 +60,13 @@ const BlogPage = () => {
   };
 
   const handleReadMore = (blog) => {
+    console.log('Selected Blog:', blog);  // Log the entire blog object to check the structure
+    if (!blog._id) {
+      console.error('Blog _id is missing!');
+      return;  // Prevent fetch if _id is missing
+    }
     setSelectedBlog(blog);
-    fetchComments(blog.id); // Fetch comments when a blog is selected
+    fetchComments(blog._id); // Use _id instead of id
   };
 
   const closeFullView = () => {
@@ -68,15 +85,33 @@ const BlogPage = () => {
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     if (newComment.trim() === "") return; // Don't submit if the comment is empty
+    if (!selectedBlog || !selectedBlog._id) {
+      console.error("No blog selected or blog ID is missing");
+      return;
+    }
+   
+  const author = "Anonymous"; // Default author if not provided (or use logged-in user's name)
+  
+  const newCommentData = {
+    body: newComment,
+    author: author,
+    blogId: selectedBlog._id, // Add the blogId to tie the comment to the selected blog
+  };
+
+  // Optimistically add the new comment to the list
+  setComments([...comments,newCommentData]); // Temporary ID
+  setNewComment(""); // Clear the comment input field
 
     try {
-      const response = await fetch(`http://localhost:3000/blog/comments/${selectedBlog.id}`, {
+      const response = await fetch(`http://localhost:3000/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content: newComment }),
+        body: JSON.stringify(newCommentData),
       });
+        
+    
       if (!response.ok) {
         throw new Error('Failed to submit comment');
       }
@@ -121,12 +156,15 @@ const BlogPage = () => {
 
               {/* Display existing comments */}
               <div className="space-y-4 mb-6">
-                {comments.map((comment) => (
-                  <div key={comment.id} className="bg-white p-4 rounded-lg shadow-sm">
-                    <p className="text-gray-800">{comment.content}</p>
-                    <p className="text-sm text-gray-500 mt-2">By: {comment.author} | {new Date(comment.created).toLocaleDateString()}</p>
-                  </div>
-                ))}
+  {Array.isArray(comments) && comments.map((comment) => (
+    <div key={comment.id} className="bg-white p-4 rounded-lg shadow-sm">
+      <p className="text-gray-800">{comment.body}</p>
+      <p className="text-sm text-gray-500 mt-2">
+        By: {comment.author} | {new Date(comment.created).toLocaleDateString()}
+      </p>
+    </div>
+  ))}
+
               </div>
 
               {/* Comment Form */}
