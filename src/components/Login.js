@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [name, setname] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const navigate = useNavigate()
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const payload = { name, password, email };
-    console.log("Request Payload:", payload); // Log the request payload
+    // console.log("Request Payload:", payload); // Log the request payload
     try {
       const response = await fetch("http://localhost:3000/profile/login", {
         method: "POST",
@@ -23,6 +25,7 @@ const Login = () => {
         console.log(data);
         document.cookie = `token=${data.token}`;
         alert("Login Successful");
+        navigate("/profile")
       } else {
         alert(data.message);
       }
@@ -76,7 +79,7 @@ const Login = () => {
             Password
           </label>
           <input
-            type="text"
+            type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
