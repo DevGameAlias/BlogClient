@@ -23,8 +23,10 @@ const StoryList = () => {
   }, []);
 
   //HandleDelete function is for interaction with the database
-  const handleStoryDelete = ()=>{
-
+  const handleStoryDelete = (deletedId)=>{
+    //needs to get the ID thats being deleted throough the params
+    setStories(stories.filter(s=>s.id !== deletedId))
+    setDeletedpost(null) // Close the popup after deletion
   }
 
   return (
@@ -33,6 +35,7 @@ const StoryList = () => {
       <div className="flex flex-wrap gap-5">
         {/* .MAP() creates a new array by transforming the elements of an existing array */}
         {stories.map((story) => (
+          
           <div
             key={story._id}
             className="bg-white border border-gray-300 rounded-lg p-5 shadow-md w-72"
@@ -40,8 +43,12 @@ const StoryList = () => {
             <h2 className="text-xl font-semibold">{story.title}</h2>
             <p className="text-gray-700">{story.content}</p>
             {/* adds button on each story that is array casted */}
-            <button onClick={setDeletedpost}></button>
+            
+            <button onClick={()=>setDeletedpost(story._id)}>{/*Set the story ID for deletion */}
+              DELETE
+            </button>
           </div>
+
         ))}
       </div>
     </div>
