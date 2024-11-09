@@ -1,5 +1,5 @@
 
-
+//this component is strictly for handling the visual UI deletion 
 const StoryDelete = ({ postId, onDelete }) => {
     const uRl = `http://localhost:3000/stories/${postId}`;
 
