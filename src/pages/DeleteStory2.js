@@ -35,8 +35,8 @@ const StoryDelete = ({ postId, onDelete, onCancel }) => {
             <form action="">
                 <h2 className="text-rose-500">**Confirm Deletion**</h2>
                 <p>Are you sure you want to delete this post?</p>
-                <button type="button" onClick={handleDelete} className=" p-2 text-rose-500">Delete</button>
-                <button type="button" onClick={handleCancel} className=" p-2 text-amber-500">Cancel</button>
+                <button type="button" onClick={handleDelete} className=" p-2 text-rose-500 hover:animate-pulse">Delete</button>
+                <button type="button" onClick={handleCancel} className=" p-2 text-amber-500 hover:animate-pulse">Cancel</button>
             </form>
         </div>
     );
