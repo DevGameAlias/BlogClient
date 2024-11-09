@@ -16,7 +16,7 @@ import StoryCreation from "./components/StoryCreation";
 import HomePage from './pages/Home';
 import BlogPage from "./pages/BlogPage";
 import StoryList from './components/StoryList'; // Import the new StoryList component
-
+import StoryDelete from "./pages/DeleteStory2";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<AppLayout />}>
