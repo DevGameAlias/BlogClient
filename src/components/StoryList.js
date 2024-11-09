@@ -29,6 +29,15 @@ const StoryList = () => {
     setDeletedpost(null) // Close the popup after deletion
   }
 
+  //handlecancel and oncancel need to be separTELY defined
+  //Handlecancel function for deleteStory 
+  //and the actual onCancel function in the StoryList 
+  //onCancel is just a property too be passed untill created
+
+  const onCancel = async () =>{
+    setDeletedpost(null) // Close the popup
+  }
+  
   return (
     <div className="p-5">
       <h1 className="text-3xl font-bold mb-5">Story List</h1>
@@ -48,8 +57,11 @@ const StoryList = () => {
               <div className=""> DELETE </div>
             </button>
 
+
             {/* pass through props POSTID & onDelete */} 
-            {postIdDelete === story._id && <DeleteStory postId={postIdDelete} onDelete={handleStoryDelete}/>}
+            <div className="bg-stone-950 text-white rounded-md p-2px ">
+            {postIdDelete === story._id && <DeleteStory postId={postIdDelete} onDelete={handleStoryDelete} onCancel={onCancel}/>}
+            </div>
           </div>
 
         ))}
