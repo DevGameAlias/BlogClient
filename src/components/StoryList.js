@@ -3,6 +3,7 @@ import DeleteStory from "../pages/DeleteStory2";
 //this is what im testing the delete in
 
 const StoryList = () => {
+
   const [stories, setStories] = useState([]);
   //setting which post is being deleted
   const [postIdDelete, setDeletedpost] = useState(null);//set to null to indicate empty
@@ -65,9 +66,9 @@ const StoryList = () => {
           </div>
 
         ))}
+
       </div>
-    </div>
-  );
+    );
 };
 
 export default StoryList;
