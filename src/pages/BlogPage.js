@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import CommentSection from '../components/Comments';
+import CommentSection from '../components/CommentsSection';
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -9,6 +9,8 @@ const BlogPage = () => {
   const [isClosing, setIsClosing] = useState(false); // state to track closing effect
   const [newComment, setNewComment] = useState(""); // state to track new comment input
   const [comments, setComments] = useState([]); // state to track comments for selected blog
+  const [author, setAuthor] = useState("");  // State for storing the author's name
+ 
 
   const fetchBlogs = async () => {
     try {
@@ -29,28 +31,22 @@ const BlogPage = () => {
   const fetchComments = async (blogId) => {
     try {
       const response = await fetch(`http://localhost:3000/comments/blog/${blogId}`);
-      
       if (!response.ok) {
         throw new Error('Failed to fetch comments');
       }
-      
       const commentsData = await response.json();
+      console.log(commentsData); // Check what the backend returns
       
-      console.log('Fetched comments:', commentsData);  // Check the fetched data
-      
-      // Ensure that commentsData is an array
       if (Array.isArray(commentsData)) {
-        setComments(commentsData); // Set the comments state if it's an array
+        setComments(commentsData);  // Set comments only if it's an array
       } else {
-        console.error('Fetched comments are not an array', commentsData);
-        setComments([]); // In case it's not an array, set comments to an empty array
+        setComments([]);  // Reset to an empty array if it's not an array
       }
     } catch (error) {
+      setComments([]);  // Reset to an empty array in case of error
       console.error('Error fetching comments:', error);
-      setComments([]); // Handle the error and reset comments to empty array
     }
   };
-
   useEffect(() => {
     fetchBlogs();
   }, []);
@@ -83,6 +79,10 @@ const BlogPage = () => {
     setNewComment(event.target.value);
   };
 
+  const handleAuthorChange = (event) => {
+    setAuthor(event.target.value); // This will update the author state as the user types
+  };
+
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     if (newComment.trim() === "") return; // Don't submit if the comment is empty
@@ -90,8 +90,10 @@ const BlogPage = () => {
       console.error("No blog selected or blog ID is missing");
       return;
     }
+
+    
    
-  const author = "Anonymous"; // Default author if not provided (or use logged-in user's name)
+  
   
   const newCommentData = {
     body: newComment,
@@ -131,7 +133,6 @@ const BlogPage = () => {
       <div className="w-full max-w-6xl px-4">
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {/* If there's a selected blog, show it in full-screen mode */}
         {selectedBlog ? (
           <div
             className={`fixed top-0 left-0 w-full h-full bg-orange-50 z-50 flex flex-col justify-start items-center p-8 overflow-auto shadow-2xl rounded-lg transition-all duration-500 ease-in-out transform scale-100 ${
@@ -151,40 +152,16 @@ const BlogPage = () => {
               <p>{selectedBlog.content}</p>
             </div>
 
-            {/* Comment Section */}
-            <div className="mt-8 w-full max-w-3xl">
-              <h3 className="text-2xl font-semibold mb-4">Comments</h3>
-
-              {/* Display existing comments */}
-              <div className="space-y-4 mb-6">
-  {Array.isArray(comments) && comments.map((comment) => (
-    <div key={comment.id} className="bg-white p-4 rounded-lg shadow-sm">
-      <p className="text-gray-800">{comment.body}</p>
-      <p className="text-sm text-gray-500 mt-2">
-        By: {comment.author} | {new Date(comment.created).toLocaleDateString()}
-      </p>
-    </div>
-  ))}
-
-              </div>
-
-              {/* Comment Form */}
-              <form onSubmit={handleCommentSubmit} className="flex flex-col space-y-4">
-                <textarea
-                  value={newComment}
-                  onChange={handleCommentChange}
-                  placeholder="Write your comment..."
-                  rows="4"
-                  className="p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
-                <button
-                  type="submit"
-                  className="bg-teal-500 text-white py-2 px-4 rounded-md hover:bg-teal-600 transition-colors duration-300"
-                >
-                  Post Comment
-                </button>
-              </form>
-            </div>
+            
+            {/* Pass props to the CommentSection */}
+            <CommentSection 
+              comments={comments}
+              newComment={newComment}
+              handleCommentChange={handleCommentChange}
+              handleCommentSubmit={handleCommentSubmit}
+              author={author}  // Pass author state as a prop
+              handleAuthorChange={handleAuthorChange}  // Pass handler for author input
+            />
           </div>
         ) : (
           <div className="flex flex-wrap justify-center gap-8">
