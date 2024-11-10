@@ -22,7 +22,7 @@ const BlogList = () => {
       }
 
       const fetchedBlogs = await response.json();
-      setBlogs(fetchedBlogs); // Update the state with the fetched blogs
+      setBlogs(fetchedBlogs);
     } catch (error) {
       console.error('Error fetching blogs:', error);
     }
@@ -46,8 +46,24 @@ const BlogList = () => {
     }
   };
 
-  const handleDelete = (id) => {
-    setBlogs(blogs.filter(blog => blog.id !== id));
+  // Updated handleDelete function with a DELETE fetch call
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/blog/blogs/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete blog');
+      }
+
+      setBlogs(blogs.filter(blog => blog.id !== id));
+    } catch (error) {
+      console.error('Error deleting blog:', error);
+    }
   };
 
   const handleAdd = () => {
@@ -66,7 +82,7 @@ const BlogList = () => {
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold text-yellow-800">Blog Posts</h1>
         <button
-          onClick={handleFetchBlogs} // Fetch blogs on button click
+          onClick={handleFetchBlogs}
           className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
         >
           Show Blogs
