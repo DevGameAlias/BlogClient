@@ -60,14 +60,14 @@ const StoryList = () => {
 
 
             {/* pass through props POSTID & onDelete */} 
-            <div className="bg-stone-950 text-white rounded-md p-2px ">
+            <div className="bg-stone-950 text-white rounded-md p-2p ">
             {postIdDelete === story._id && <DeleteStory postId={postIdDelete} onDelete={handleStoryDelete} onCancel={onCancel}/>}
             </div>
           </div>
-
         ))}
+        </div>
+        </div>
 
-      </div>
     );
 };
 
