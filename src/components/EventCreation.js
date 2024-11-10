@@ -46,7 +46,7 @@ const EventCreation = () => {
   };
   return (
     // Event Creation Cardo
-    <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 ">
+    <div className="flex flex-col items-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 ">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-center">Create Event</h2>
         <form onSubmit={handleEvent}>

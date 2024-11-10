@@ -35,9 +35,9 @@ const Profile = () => {
           </ul>
         </div>
         <div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 ">
 
-          <button className={'bg-blue-500 text-white p-2 rounded hover:animate-pulse'}
+          <button className='bg-blue-500 text-white p-2 rounded hover:animate-pulse '
           onClick={()=>{
             setIsVisible(true)
           }}>

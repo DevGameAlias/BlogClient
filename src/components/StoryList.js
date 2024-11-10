@@ -53,6 +53,7 @@ const StoryList = () => {
             className="bg-white border border-gray-300 rounded-lg p-5 shadow-md w-72"
           >
             <h2 className="text-xl font-semibold">{story.title}</h2>
+            <p>{`Created By: ${story.author} @ ${story.createdAt}`}</p>
             <p className="text-gray-700">{story.content}</p>
             {/* adds button on each story that is array casted */}
             

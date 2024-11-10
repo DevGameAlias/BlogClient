@@ -67,7 +67,7 @@ const BlogList = () => {
         <h1 className="text-2xl font-bold text-yellow-800">Blog Posts</h1>
         <button
           onClick={handleFetchBlogs} // Fetch blogs on button click
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="flex flex-col items-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 "
         >
           Show Blogs
         </button>
