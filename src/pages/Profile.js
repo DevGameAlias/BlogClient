@@ -35,16 +35,21 @@ const Profile = () => {
           </ul>
         </div>
         <div>
+            <div className="flex flex-col items-center">
 
-          <button onClick={()=>{
+          <button className={'bg-blue-500 text-white p-2 rounded hover:animate-pulse'}
+          onClick={()=>{
             setIsVisible(true)
           }}>
             Create Story
           </button>
+            </div>
         { isVisible && 
-        <div className="short-story">
-          <StoryCreation setIsVisible={setIsVisible}/> Add the StoryCreation component here
-          {/* Insert Short story CRUD here */}
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative z-50 ">
+            <StoryCreation setIsVisible={setIsVisible}/> Add the StoryCreation component here
+            {/* Insert Short story CRUD here */}
+          </div>
         </div>
         }
 
