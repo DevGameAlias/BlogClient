@@ -5,26 +5,26 @@ const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null);
 
+  const fetchBlogs = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/blog/blogs');
+      if (!response.ok) {
+        throw new Error('Failed to fetch blogs');
+      }
+      const blogsData = await response.json();
+      
+      // sort blogs by creation date in descending order
+      const sortedBlogs = blogsData.sort((a, b) => new Date(b.created) - new Date(a.created));
+      setBlogs(sortedBlogs);
+    } catch (error) {
+      setError('Failed to fetch blogs');
+      console.error(error);
+    }
+  };
 
-      const fetchBlogs = async () => {
-        try {
-          const response = await fetch('http://localhost:3000/blog/blogs');
-          if (!response.ok) {
-            throw new Error('Failed to fetch blogs');
-          }
-          const blogsData = await response.json();
-          
-          // sort blogs by creation date in decending order
-          const sortedBlogs = blogsData.sort((a, b) => new Date(b.created) - new Date(a.created));
-          setBlogs(blogsData);
-        } catch (error) {
-          setError('Failed to fetch blogs');
-          console.error(error);
-        }
-      };
-      useEffect(() => {
-        fetchBlogs();
-      }, []);
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
 
   // Function to limit the content to the first 30 words
   const truncateContent = (content, wordLimit = 30) => {
@@ -37,8 +37,8 @@ const BlogPage = () => {
       <div className='w-full max-w-4xl px-4'>
         {error && <p className="text-red-500">{error}</p>}
         <div className="space-y-6">
-        {blogs.map((blog) => (
-            <div key={blog.id} className="bg-white p-6 rounded-lg shadow-md">
+          {blogs.map((blog) => (
+            <div key={blog.id} className="bg-white p-6 rounded-lg shadow-md border-2 border-brown-800">
               <h2 className="text-xl font-semibold">{blog.title}</h2>
               <p className="text-sm text-gray-500 mb-2">By: {blog.author} | {new Date(blog.created).toLocaleDateString()}</p>
               {/* Display a truncated preview of the blog content */}
@@ -46,11 +46,11 @@ const BlogPage = () => {
 
               {/* Toggle button to reveal full content */}
               <FullContentToggle content={blog.content} />
+            </div>
+          ))}
+        </div>
       </div>
-        ))}
-     </div>
     </div>
-   </div>
   );
 };
 
@@ -87,6 +87,5 @@ const FullContentToggle = ({ content }) => {
     </div>
   );
 };
-
 
 export default BlogPage;
