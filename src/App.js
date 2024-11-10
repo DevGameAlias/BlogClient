@@ -11,9 +11,12 @@ import AppLayout from "./appLayout/AppLayout";
 import Profile from "./pages/Profile";
 import AboutPage from "./pages/AboutPage";
 import Login from "./components/Login";
-import BlogListButton from "./pages/BlogListButton"; // Make sure this path matches your file structure
+
+import BlogListButton from './components/BlogListButton'; // Make sure this path matches your file structure
+import BlogList from './pages/BlogList';
 import StoryCreation from "./components/StoryCreation.js";
 import HomePage from "./pages/Home";
+
 import BlogPage from "./pages/BlogPage";
 
 import StoryList from './components/StoryList'; // Import the new StoryList component
@@ -22,8 +25,10 @@ import EventsPage from "./pages/Events.js";
 import ProtectedRoute from "./components/ProtectedRoute.js";// Component to protect admin routes
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<AppLayout />}>
+
+
+    <Route path="/blogList" element={<BlogList />} />   
     <Route path="/blogCreation" element={<ProtectedRoute ><Profile /> </ProtectedRoute>} />
-    <Route path="/blogList" element={<BlogListButton />} />   
     <Route path="/homePage" element={<HomePage />} />
     <Route path="/blogPage" element={<BlogPage />} />
     <Route path="/about" element={<AboutPage />} />
