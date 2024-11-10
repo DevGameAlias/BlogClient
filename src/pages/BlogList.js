@@ -29,24 +29,42 @@ const BlogList = () => {
   };
 
   const handleEdit = (blog) => {
-    setEditingId(blog.id);
+    setEditingId(blog._id); // Update to use _id for MongoDB
     setEditedBlog({ title: blog.title, content: blog.content });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (editedBlog.title && editedBlog.content) {
-      setBlogs(blogs.map(blog => 
-        blog.id === editingId 
-          ? { ...blog, title: editedBlog.title, content: editedBlog.content }
-          : blog
-      ));
-      setEditingId(null);
+      try {
+        const response = await fetch(`http://localhost:3000/blog/blogs/${editingId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(editedBlog),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to update blog');
+        }
+
+        const updatedBlog = await response.json();
+        
+        setBlogs(blogs.map(blog => 
+          blog._id === editingId 
+            ? { ...blog, title: editedBlog.title, content: editedBlog.content }
+            : blog
+        ));
+        setEditingId(null);
+      } catch (error) {
+        console.error('Error updating blog:', error);
+        alert('Failed to update blog post');
+      }
     } else {
       alert('Title and content cannot be empty.');
     }
   };
 
-  // Updated handleDelete function with a DELETE fetch call
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/blog/blogs/${id}`, {
@@ -60,18 +78,36 @@ const BlogList = () => {
         throw new Error('Failed to delete blog');
       }
 
-      setBlogs(blogs.filter(blog => blog.id !== id));
+      setBlogs(blogs.filter(blog => blog._id !== id));
     } catch (error) {
       console.error('Error deleting blog:', error);
+      alert('Failed to delete blog post');
     }
   };
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (newBlog.title && newBlog.content) {
-      const newId = Math.max(...blogs.map(blog => blog.id)) + 1;
-      setBlogs([...blogs, { id: newId, ...newBlog }]);
-      setNewBlog({ title: '', content: '' });
-      setIsAddingNew(false);
+      try {
+        const response = await fetch('http://localhost:3000/blog/blogs', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newBlog),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to create blog');
+        }
+
+        const createdBlog = await response.json();
+        setBlogs([...blogs, createdBlog]);
+        setNewBlog({ title: '', content: '' });
+        setIsAddingNew(false);
+      } catch (error) {
+        console.error('Error creating blog:', error);
+        alert('Failed to create blog post');
+      }
     } else {
       alert('Title and content cannot be empty.');
     }
@@ -132,10 +168,10 @@ const BlogList = () => {
 
       {blogs.map((blog) => (
         <div
-          key={blog.id}
+          key={blog._id}
           className="border-2 rounded-lg p-4 bg-yellow-50 border-yellow-200 shadow-md transition hover:shadow-lg"
         >
-          {editingId === blog.id ? (
+          {editingId === blog._id ? (
             <>
               <input
                 type="text"
@@ -176,7 +212,7 @@ const BlogList = () => {
                     <Pencil size={16} />
                   </button>
                   <button
-                    onClick={() => handleDelete(blog.id)}
+                    onClick={() => handleDelete(blog._id)}
                     className="text-red-600 hover:text-red-800"
                   >
                     <Trash2 size={16} />
