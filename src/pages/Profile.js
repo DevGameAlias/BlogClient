@@ -9,6 +9,7 @@ import StoryCreation from "../components/StoryCreation.js";
 
 // import StoryDelete from "./DeleteStory";
 const Profile = () => {
+  const [isVisible,setIsVisible]= useState(false)
   const [blogs, setBlogs] = useState([]);
 
   const addBlog = (blog) => {
@@ -34,10 +35,19 @@ const Profile = () => {
           </ul>
         </div>
         <div>
+
+          <button onClick={()=>{
+            setIsVisible(true)
+          }}>
+            Create Story
+          </button>
+        { isVisible && 
         <div className="short-story">
-          <StoryCreation /> Add the StoryCreation component here
+          <StoryCreation setIsVisible={setIsVisible}/> Add the StoryCreation component here
           {/* Insert Short story CRUD here */}
         </div>
+        }
+
           {/* EventCreation component */}
         <div className="event-creation">
           <EventCreation />

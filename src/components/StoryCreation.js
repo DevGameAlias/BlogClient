@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-const StoryCreation = () => {
+const StoryCreation = ({setIsVisible}) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
+  const [author,setAuthor]= useState()
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -31,6 +32,7 @@ const StoryCreation = () => {
           title: title,
           content: content,
           description: description,
+          author:author
         }),
       });
 
@@ -63,6 +65,16 @@ const StoryCreation = () => {
 
             {/* Form Submission */}
             <form onSubmit={StorySubmit}>
+
+            <input
+                type="text"
+                placeholder="Author"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                className="border border-gray-300 p-2 mb-4 w-full"
+                required
+              />
+
               <input
                 type="text"
                 placeholder="Title"
@@ -105,7 +117,9 @@ const StoryCreation = () => {
             {success && <div className="text-green-500 mt-2">{success}</div>}
 
             <div className="p-1">
-              <button className="mt-1 text-green-800">Close</button>
+              <button onClick={()=>{
+                setIsVisible(false)
+              }} className="mt-1 text-green-800">Close</button>
             </div>
           </div>
         </div>
