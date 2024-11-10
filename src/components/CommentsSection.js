@@ -1,53 +1,125 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const CommentSection = ({ comments, newComment, handleCommentChange, handleCommentSubmit, author, handleAuthorChange }) => {
+const CommentSection = ({ blogId }) => {
+  const [comments, setComments] = useState([]);  // Initialize as an empty array
+  const [newComment, setNewComment] = useState("");
+  const [author, setAuthor] = useState("");
+
+  // Fetch comments when blogId changes
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/comments/blog/${blogId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch comments');
+        }
+
+        // Fetch the comments data and check if it's an array
+        const commentsData = await response.json();
+        
+        // Make sure commentsData is an array
+        if (Array.isArray(commentsData)) {
+          setComments(commentsData);
+        } else {
+          console.error('Expected an array of comments, but got:', commentsData);
+          setComments([]);  // Default to an empty array if data isn't an array
+        }
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+        setComments([]);  // Reset to empty array in case of an error
+      }
+    };
+
+    if (blogId) {
+      fetchComments(); // Fetch comments if blogId is available
+    }
+  }, [blogId]); // Depend on blogId, so fetch again if it changes
+
+  // Handle new comment input change
+  const handleCommentChange = (event) => {
+    setNewComment(event.target.value);
+  };
+
+  // Handle new comment submission
+  const handleCommentSubmit = async (event) => {
+    event.preventDefault();
+    if (newComment.trim() === "") return;
+
+    const newCommentData = {
+      body: newComment,
+      author: author,
+      blogId: blogId,
+    };
+    console.log(newCommentData);
+    // Optimistically add the new comment
+    setComments((prevComments) => [...prevComments, newCommentData]);
+    setNewComment(""); // Reset the comment input
+
+    try {
+      const response = await fetch(`http://localhost:3000/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newCommentData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit comment');
+      }
+
+      const updatedComments = await response.json();
+      setComments(updatedComments); // Update comments with the response
+    } catch (error) {
+      console.error('Error submitting comment:', error);
+    }
+  };
+
   return (
-    <div className="mt-8 w-full max-w-3xl">
-      <h3 className="text-2xl font-semibold mb-4">Comments</h3>
+    <div>
+      <div className="comments-section mt-6">
+        <h3 className="text-2xl font-bold">Comments</h3>
 
-{/* Display existing comments */}
-<div className="space-y-4 mb-6">
-        {/* Only attempt to map if comments is an array */}
-        {Array.isArray(comments) && comments.map((comment) => (
-          <div key={comment.id} className="bg-white p-4 rounded-lg shadow-sm">
-            <p className="text-gray-800">{comment.body}</p>
-            <p className="text-sm text-gray-500 mt-2">
-              By: {comment.author} | {new Date(comment.created).toLocaleDateString()}
-            </p>
-          </div>
-        ))}
+        {/* Render Comments */}
+        {Array.isArray(comments) && comments.length > 0 ? (
+          comments.map((comment) => (
+            <div key={comment._id} className="bg-white p-4 rounded-lg shadow-sm mt-4">
+              <p className="text-gray-800">{comment.body}</p>
+              <p className="text-sm text-gray-500 mt-2">
+                By: {comment.author} | {new Date(comment.createdAt).toLocaleDateString()}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p>No comments yet. Be the first to comment!</p>
+        )}
+
+        {/* Comment Input Form */}
+        <div className="mt-6">
+          <h4 className="text-lg">Add a comment</h4>
+          <form onSubmit={handleCommentSubmit}>
+            <textarea
+              value={newComment}
+              onChange={handleCommentChange}
+              placeholder="Write your comment..."
+              className="w-full p-2 border border-gray-300 rounded-lg mt-2"
+            />
+            <input
+              type="text"
+              value={author}
+              onChange={(e) => setAuthor(e.target.value)}
+              placeholder="Your name"
+              className="w-full p-2 border border-gray-300 rounded-lg mt-2"
+            />
+            <button
+              type="submit"
+              className="mt-2 text-white bg-teal-500 hover:bg-teal-700 py-2 px-4 rounded-md"
+            >
+              Submit Comment
+            </button>
+          </form>
+        </div>
       </div>
-      
-      {/* Comment Form */}
-      <form onSubmit={handleCommentSubmit} className="flex flex-col space-y-4">
-        {/* Author Input */}
-        <input
-          type="text"
-          value={author}
-          onChange={handleAuthorChange}
-          placeholder="Enter your name"
-          className="p-4 border border-gray-300 rounded-md"
-          required
-        />
-
-        {/* Comment Textarea */}
-        <textarea
-          value={newComment}
-          onChange={handleCommentChange}
-          placeholder="Write your comment..."
-          rows="4"
-          className="p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-          required
-        />
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="bg-teal-500 text-white py-2 px-4 rounded-md hover:bg-teal-600 transition-colors duration-300"
-        >
-          Post Comment
-        </button>
-      </form>
     </div>
   );
 };
