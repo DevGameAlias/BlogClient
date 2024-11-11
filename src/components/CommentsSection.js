@@ -40,10 +40,12 @@ const CommentSection = ({ blogId }) => {
     setNewComment(event.target.value);
   };
 
+  const [error, setError] = useState(null);
+
   // Handle new comment submission
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
-    if (newComment.trim() === "") return;
+    if (newComment.trim() === ""|| author.trim() === "") return;
 
     const newCommentData = {
       body: newComment,
@@ -68,10 +70,11 @@ const CommentSection = ({ blogId }) => {
         throw new Error('Failed to submit comment');
       }
 
-      const updatedComments = await response.json();
-      setComments(updatedComments); // Update comments with the response
+      const updatedComment = await response.json();
+      setComments((prevComments) => [...prevComments, updatedComment]);
     } catch (error) {
       console.error('Error submitting comment:', error);
+      setError("Failed to post comment, please try again.");
     }
   };
 
