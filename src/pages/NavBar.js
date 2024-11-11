@@ -7,7 +7,7 @@ const NavBar = () => {
       {/* Centers content and adds horizontal padding */}
       <div className="container mx-auto px-4">
         {/* Flexbox layout */}
-        <div className="flex justify-between items-center py-4 border-b border-gray-3002">
+        <div className="flex justify-between items-center py-4 ">
           <div className=" font-serif text-xl text-orange-100 font-bold">
             {/* TODO name of website or icon would go here */}
             <NavLink to="/">Title or Icon</NavLink>

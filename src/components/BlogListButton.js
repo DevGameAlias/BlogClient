@@ -33,11 +33,18 @@ const BlogListButton = () => {
     ));
 
     return (
-        <div>
-            <button onClick={handleFetchBlogs}>Show Blogs</button>
+        <>
+        
+        <div className="flex flex-col items-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 ">
+            <button onClick={handleFetchBlogs} className='bg-blue-500 text-white p-2 rounded hover:animate-pulse '>Show Blogs</button>
             {errorMessage}
+            
+        </div>
+        <div className="flex flex-col bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 ">
             {blogsList}
         </div>
+
+        </>
     );
 };
 

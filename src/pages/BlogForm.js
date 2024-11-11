@@ -89,7 +89,7 @@ const BlogForm = ({ onAddBlog }) => {
     // component returns JSX layout for form (form is styled with tailwind)
     // we may change this form to include 
     return ( 
-        <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 transition-all duration-1000">
+        <div className="flex flex-col items-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 transition-all duration-1000">
             <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
                 <h2 className="text-4xl font-serif font-thin text-center mb-6">Add a New Blog</h2> 
                 <div className="mb-4"> {/*all the code from here down is the input feilds */}
