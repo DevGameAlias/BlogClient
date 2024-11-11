@@ -17,20 +17,12 @@ const Profile = () => {
   return (
       <>
           <div className="profile-page">
-              <h1>Author Profile</h1>
+              
               <div className="blog">
                   <BlogForm onAddBlog={addBlog} />
   
                   {/* List of submitted blogs */}
-                  <ul>
-                      {/* Map over the blogs array to create a list item for each blog */}
-                      {blogs.map((blog, index) => (
-                          <li key={index}>
-                              <h3>{blog.title}</h3> {/* Display the blog title */}
-                              <p>{blog.content}</p> {/* Display the blog content */}
-                          </li>
-                      ))}
-                  </ul>
+                  
               </div>
               <div className="short-story">
               {/* <StoryCreation /> Add the StoryCreation component here */}
