@@ -8,18 +8,19 @@ const StoryList = () => {
   //setting which post is being deleted
   const [postIdDelete, setDeletedpost] = useState(null);//set to null to indicate empty
   //This allows us to keep track of whether a post is selected for deletion or not.
-  useEffect(() => {
-    const fetchStories = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/stories");
-        const data = await response.json();
-        console.log("logging", data);
+  const fetchStories = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/stories");
+      const data = await response.json();
+      console.log("logging", data);
 
-        setStories(data);
-      } catch (error) {
-        console.log("failed to fetch stories", error);
-      }
-    };
+      setStories(data);
+    } catch (error) {
+      console.log("failed to fetch stories", error);
+    }
+  };
+
+  useEffect(() => {
     fetchStories();
   }, []);
 
@@ -28,6 +29,7 @@ const StoryList = () => {
     //needs to get the ID thats being deleted throough the params
     setStories(stories.filter(s=>s.id !== deletedId))
     setDeletedpost(null) // Close the popup after deletion
+    
   }
 
   //handlecancel and oncancel need to be separTELY defined
@@ -51,6 +53,7 @@ const StoryList = () => {
             className="bg-white border border-gray-300 rounded-lg p-5 shadow-md w-72"
           >
             <h2 className="text-xl font-semibold">{story.title}</h2>
+            <p>{`Created By: ${story.author} @ ${story.createdAt}`}</p>
             <p className="text-gray-700">{story.content}</p>
             {/* adds button on each story that is array casted */}
             
@@ -61,7 +64,7 @@ const StoryList = () => {
 
             {/* pass through props POSTID & onDelete */} 
             <div className="bg-stone-950 text-white rounded-md p-2p ">
-            {postIdDelete === story._id && <DeleteStory postId={postIdDelete} onDelete={handleStoryDelete} onCancel={onCancel}/>}
+            {postIdDelete === story._id && <DeleteStory fetchStories={fetchStories} postId={postIdDelete} onDelete={handleStoryDelete} onCancel={onCancel}/>}
             </div>
           </div>
         ))}
