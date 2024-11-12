@@ -56,7 +56,7 @@ const BlogForm = ({ onAddBlog }) => {
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 transition-all duration-1000">
+        <div className="flex flex-col items-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 transition-all duration-1000">
             {/* Button to toggle the form */}
             {!isFormVisible && (
                 <button
