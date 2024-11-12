@@ -68,8 +68,10 @@ const CommentSection = ({ blogId }) => {
 
       // Only add the comment to the list once it has been successfully saved to the server
       const savedComment = await response.json();
+
       setComments((prevComments) => [...prevComments, savedComment]);
       setNewComment("") // reset the comment input
+      setAuthor(""); // reset the comment input
     } catch (error) {
       console.error('Error submitting comment:', error);
       setError("Failed to post comment, please try again.");
