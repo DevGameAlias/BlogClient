@@ -1,50 +1,51 @@
 import React, { useState, useEffect } from 'react';
 
-const AdminReviews = () => {
-  const [reviews, setReviews] = useState([]);
+const AdminComments = () => {
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch Comments from the API
   useEffect(() => {
-    const fetchReviews = async () => {
+    const fetchComments = async () => {
       try {
-        const response = await fetch('http://localhost:3000/storyReview'); // Fetch all reviews
+        const response = await fetch('http://localhost:3000/storyReview');
         if (!response.ok) {
-          throw new Error('Failed to fetch reviews');
+          throw new Error('Failed to fetch comments');
         }
         const data = await response.json();
-        setReviews(data); // Update state with the fetched reviews
+        setComments(data); // Set the fetched comments
       } catch (error) {
-        console.error('Error fetching reviews:', error);
-        setError('Failed to load reviews, please try again later.');
+        console.error('Error fetching comments:', error);
+        setError('Failed to load comments, please try again later.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchReviews();
-  }, []); // Fetch reviews once when the component mounts
+    fetchComments();
+  }, []);
 
   return (
     <div>
       {loading ? (
-        <p>Loading reviews...</p>
+        <p>Loading comments...</p>
       ) : error ? (
         <p className="text-red-500">{error}</p>
-      ) : reviews.length > 0 ? (
-        reviews.map((review) => (
-          <div key={review._id} className="bg-gray-50 p-4 rounded-lg mt-4">
-            <p className="text-gray-800">{review.body}</p>
+      ) : comments.length > 0 ? (
+        comments.map((comment) => (
+          <div key={comment._id} className="bg-gray-50 p-4 rounded-lg mt-4">
+            <p className="text-gray-800">{comment.body}</p>
             <p className="text-sm text-gray-500 mt-2">
-              By: {review.author} | {new Date(review.createdAt).toLocaleDateString()}
+              By: {comment.author} | {new Date(comment.createdAt).toLocaleDateString()}
             </p>
           </div>
         ))
       ) : (
-        <p>No reviews available.</p>
+        <p>No comments available.</p>
       )}
     </div>
   );
 };
 
-export default AdminReviews;
+export default AdminComments;
