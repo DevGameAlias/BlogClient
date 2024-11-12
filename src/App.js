@@ -12,10 +12,19 @@ import Profile from "./pages/Profile";
 import AboutPage from "./pages/AboutPage";
 import Login from "./components/Login";
 
+
+
+
+
+
+import ScrollToTop from "./components/ScrollToTop";
+
+
 import BlogListButton from './components/BlogListButton'; // Make sure this path matches your file structure
 import BlogList from './pages/BlogList';
 import StoryCreation from "./components/StoryCreation.js";
 import HomePage from "./pages/Home";
+
 
 import BlogPage from "./pages/BlogPage";
 
@@ -44,7 +53,14 @@ const router = createBrowserRouter(createRoutesFromElements(
 
 
 function App() {
-  return <RouterProvider router={router} />;
-}
+  return (
+    <RouterProvider router={router}>
+      {/* ScrollToTop should be here to listen for route changes */}
+      <ScrollToTop />
+
+    </RouterProvider>
+  );
+
+
 
 export default App;

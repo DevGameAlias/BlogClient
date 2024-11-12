@@ -17,25 +17,32 @@ const Profile = () => {
   };
 
   return (
-    <>
-      <div className="profile-page">
-        <h1 className=""></h1>
-        <div className="blog">
-          <BlogForm onAddBlog={addBlog} />
 
-          {/* List of submitted blogs */}
-          <ul>
-            {/* Map over the blogs array to create a list item for each blog */}
-            {blogs.map((blog, index) => (
-              <li key={index}>
-                <h3>{blog.title}</h3> {/* Display the blog title */}
-                <p>{blog.content}</p> {/* Display the blog content */}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-            <div className="flex flex-col items-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 ">
+      <>
+          <div className="profile-page">
+              
+              <div className="blog">
+                  <BlogForm onAddBlog={addBlog} />
+  
+                  {/* List of submitted blogs */}
+                  
+              </div>
+              <div className="short-story">
+              {/* <StoryCreation /> Add the StoryCreation component here */}
+                  {/* Insert Short story CRUD here */}
+              </div>
+              <div className="blog-list">
+                  <BlogListButton /> {/* Add the BlogListButton component here */}
+              </div>
+          </div>
+  {/* // Short story component that needs to be moved into components and called into profile    */}
+  
+    <div className="blog">{/* Insertn Blog Crud here */}</div>
+    
+      </>
+  );
+};
+
 
           <button className='bg-blue-500 text-white p-2 rounded hover:animate-pulse '
           onClick={()=>{
