@@ -6,42 +6,61 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-
+// Imports of pages and components
 import AppLayout from "./appLayout/AppLayout";
-import Profile from './pages/Profile';
+import Profile from "./pages/Profile";
 import AboutPage from "./pages/AboutPage";
 import Login from "./components/Login";
-import BlogListButton from './pages/BlogListButton'; // Make sure this path matches your file structure
-import StoryCreation from "./components/StoryCreation";
-import HomePage from './pages/Home';
-import BlogPage from "./pages/BlogPage";
-import StoryList from './components/StoryList'; // Import the new StoryList component
+
+
+
+
+
+
 import ScrollToTop from "./components/ScrollToTop";
 
+
+import BlogListButton from './components/BlogListButton'; // Make sure this path matches your file structure
+import BlogList from './pages/BlogList';
+import StoryCreation from "./components/StoryCreation.js";
+import HomePage from "./pages/Home";
+
+
+import BlogPage from "./pages/BlogPage";
+
+import StoryList from './components/StoryList'; // Import the new StoryList component
+import StoryDelete from "./pages/DeleteStory2";
+import EventsPage from "./pages/Events.js";
+import ProtectedRoute from "./components/ProtectedRoute.js";// Component to protect admin routes
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<AppLayout />}>
-    <Route path="/blogCreation" element={<Profile />} />
-    <Route path="/blogList" element={<BlogListButton />} />   
-    <Route path="/homePage" element={<HomePage />} />
+
+
+    <Route path="/blogList" element={<BlogList />} />   
+    <Route path="/blogCreation" element={<ProtectedRoute ><Profile /> </ProtectedRoute>} />
+    <Route path="/" element={<HomePage />} />
     <Route path="/blogPage" element={<BlogPage />} />
     <Route path="/about" element={<AboutPage />} />
     <Route path="/login" element={<Login />}/>
     <Route path="/storylist" element={<StoryList />}/>
-    <Route path="/profile" element={<Profile />}/>
+      <Route path="/events" element={<EventsPage />} />
+    <Route path="/profile" element={<ProtectedRoute ><Profile /> </ProtectedRoute>} />
     <Route path="/storycreation" element={<StoryCreation />}/>
 
 
   </Route>
 ));
 
+
 function App() {
   return (
     <RouterProvider router={router}>
       {/* ScrollToTop should be here to listen for route changes */}
       <ScrollToTop />
-      {/* Your main layout or components will go here */}
+
     </RouterProvider>
   );
-}
+
+
 
 export default App;

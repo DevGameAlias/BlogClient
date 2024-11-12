@@ -23,28 +23,29 @@ const BlogListButton = () => {
         }
     };
 
-    return (
-        <div className="flex flex-col items-center">
-            <button
-                onClick={handleFetchBlogs}
-                className="bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition duration-200"
-            >
-                Show Blogs
-            </button>
-            {error && <p className="text-red-500 mt-2">{error}</p>}
-            <ul className="mt-4">
-                {blogs.map((blog) => (
-                    <li key={blog.id} className="mb-2">
-                        <h3 className="text-lg font-semibold">{blog.title}</h3>
-                        <p>{blog.content}</p>
-                    </li>
-                ))}
-            </ul>
+    // JSX outside return statement
+    const errorMessage = error && <div>{error}</div>;
+    const blogsList = blogs.map((blog) => (
+        <div key={blog.id}>
+            <h3>{blog.title}</h3>
+            <p>{blog.content}</p>
         </div>
+    ));
+
+    return (
+        <>
+        
+        <div className="flex flex-col items-center bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 ">
+            <button onClick={handleFetchBlogs} className='bg-blue-500 text-white p-2 rounded hover:animate-pulse '>Show Blogs</button>
+            {errorMessage}
+            
+        </div>
+        <div className="flex flex-col bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 ">
+            {blogsList}
+        </div>
+
+        </>
     );
 };
 
 export default BlogListButton;
-
-
-

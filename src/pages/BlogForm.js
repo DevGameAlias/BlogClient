@@ -49,6 +49,7 @@ const BlogForm = ({ onAddBlog }) => {
         }
     };
 
+
     // Toggle the visibility of the form
     const toggleFormVisibility = () => {
         setIsFormVisible(prevState => !prevState);

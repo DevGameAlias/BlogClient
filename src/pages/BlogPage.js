@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+
 import { Link } from 'react-router-dom';
 import CommentSection from '../components/CommentsSection';
+
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -8,7 +10,9 @@ const BlogPage = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [isClosing, setIsClosing] = useState(false);
 
+
   // Fetch blog data
+
   const fetchBlogs = async () => {
     try {
       const response = await fetch('http://localhost:3000/blog/blogs');
@@ -22,6 +26,7 @@ const BlogPage = () => {
       setError('Failed to fetch blogs');
       console.error(error);
     }
+
   };
 
   useEffect(() => {
@@ -33,6 +38,7 @@ const BlogPage = () => {
     setSelectedBlog(blog);
   };
 
+
   // Close the full view of the selected blog
   const closeFullView = () => {
     setIsClosing(true);
@@ -43,6 +49,7 @@ const BlogPage = () => {
   };
 
   return (
+
     <div className="min-h-screen bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 flex flex-col justify-center items-center pt-12 pb-12">
       <div className="w-full max-w-6xl px-4">
         {error && <p className="text-red-500 text-center">{error}</p>}
@@ -93,8 +100,12 @@ const BlogPage = () => {
           </div>
         )}
       </div>
+
     </div>
   );
 };
 
+
 export default BlogPage;
+
+
