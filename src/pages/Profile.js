@@ -17,15 +17,11 @@ const Profile = () => {
   };
 
   return (
-
-      <>
+    <>
           <div className="profile-page">
-              
               <div className="blog">
                   <BlogForm onAddBlog={addBlog} />
-  
                   {/* List of submitted blogs */}
-                  
               </div>
               <div className="short-story">
               {/* <StoryCreation /> Add the StoryCreation component here */}
@@ -38,19 +34,12 @@ const Profile = () => {
   {/* // Short story component that needs to be moved into components and called into profile    */}
   
     <div className="blog">{/* Insertn Blog Crud here */}</div>
-    
-      </>
-  );
-};
-
-
-          <button className='bg-blue-500 text-white p-2 rounded hover:animate-pulse '
-          onClick={()=>{
-            setIsVisible(true)
-          }}>
+<button className='bg-blue-500 text-white p-2 rounded hover:animate-pulse '
+onClick={()=>{
+  setIsVisible(true)
+}}>
             Create Story
           </button>
-            </div>
         { isVisible && 
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative z-50 ">
@@ -67,13 +56,14 @@ const Profile = () => {
         <div className="blog-list">
           <BlogListButton /> {/* Add the BlogListButton component here */}
         </div>
-      </div>
+      
       {/* // Short story component that needs to be moved into components and called into profile    */}
-
+      
       <div className="blog">{/* Insertn Blog Crud here */}</div>
-      </div>
-    </>
-  );
-};
+      
+      
+      </>
+    );
+  };
 
 export default Profile;
