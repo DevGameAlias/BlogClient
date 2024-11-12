@@ -10,13 +10,13 @@ const NavBar = () => {
         <div className="flex justify-between items-center py-4 ">
           <div className=" font-serif text-xl text-orange-100 font-bold">
             {/* TODO name of website or icon would go here */}
-            <NavLink to="/">Title or Icon</NavLink>
+            <h2>Mike Ninness</h2>
           </div>
           {/* Space between navigation link */}
           <div className="space-x-4">
             {/* TODO update navbar with proper links once available */}
             <NavLink
-              to="/homePage"
+              to="/"
               className="text-orange-100 hover:text-blue-500"
             >
               Home
