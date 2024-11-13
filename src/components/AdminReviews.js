@@ -46,30 +46,44 @@ const AdminReviews = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-xl font-semibold text-gray-800">Reviews</h2>
-      {loading ? (
-        <p>Loading reviews...</p>
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
-      ) : reviews.length > 0 ? (
-        reviews.map((review) => (
-          <div key={review._id} className="bg-gray-50 p-4 rounded-lg mt-4">
-            <p className="text-gray-800">{review.body}</p>
-            <p className="text-sm text-gray-500 mt-2">
-              By: {review.author} | {new Date(review.createdAt).toLocaleDateString()}
-            </p>
-            <button
-              onClick={() => deleteReview(review._id)}
-              className="mt-2 text-red-500 hover:text-red-700"
-            >
-              Delete
-            </button>
-          </div>
-        ))
-      ) : (
-        <p>No reviews available.</p>
-      )}
+    <div className="container mx-auto p-6 space-y-6">
+      <h2 className="text-2xl font-semibold text-yellow-800">Reviews</h2>
+
+      {/* Error message */}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {/* Reviews List */}
+      <div className="flex flex-wrap gap-4">
+        {/* Full Width Container for Reviews */}
+        <div className="w-full">
+          {loading ? (
+            <p className="text-yellow-800">Loading reviews...</p>
+          ) : reviews.length > 0 ? (
+            reviews.map((review) => (
+              <div
+                key={review._id}
+                className="bg-yellow-50 border-2 border-yellow-200 p-6 rounded-lg shadow-md mb-6 transition hover:shadow-lg"
+              >
+                <p className="text-gray-800">{review.body}</p>
+                <p className="text-sm text-gray-500 mt-2">
+                  By: {review.author} | {new Date(review.createdAt).toLocaleDateString()}
+                </p>
+
+                <div className="flex justify-end mt-4">
+                  <button
+                    onClick={() => deleteReview(review._id)}
+                    className="text-red-600 hover:text-red-800 flex items-center gap-2 px-3 py-1 rounded bg-red-100 hover:bg-red-200"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-yellow-800">No reviews available.</p>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

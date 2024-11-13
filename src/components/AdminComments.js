@@ -46,37 +46,46 @@ const AdminCommentsPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-xl font-semibold text-gray-800">Comments Section</h2>
+    <div className="container mx-auto p-6 space-y-6">
+      <h2 className="text-2xl font-semibold text-yellow-800">Comments</h2>
 
+      {/* Error message */}
       {error && <p className="text-red-500">{error}</p>}
 
-      <div className="flex flex-wrap gap-8">
-        <div className="comments-section w-full lg:w-1/3">
+      {/* Comments List */}
+      <div className="flex flex-wrap gap-4">
+        <div className="w-full">
           {loadingComments ? (
-            <p>Loading comments...</p>
+            <p className="text-yellow-800">Loading comments...</p>
           ) : comments.length > 0 ? (
             comments.map((comment) => (
-              <div key={comment._id} className="bg-white-50 p-4 rounded-lg shadow-sm mt-4">
+              <div
+                key={comment._id}
+                className="bg-yellow-50 border-2 border-yellow-200 p-4 rounded-lg shadow-md mb-4 transition hover:shadow-lg"
+              >
                 <p className="text-gray-800">{comment.body}</p>
                 <p className="text-sm text-gray-500 mt-2">
                   By: {comment.author} | {new Date(comment.createdAt).toLocaleDateString()}
                 </p>
-                <button
-                  onClick={() => deleteComment(comment._id)}
-                  className="mt-2 text-red-500 hover:text-red-700"
-                >
-                  Delete
-                </button>
+
+                <div className="flex justify-end mt-4">
+                  <button
+                    onClick={() => deleteComment(comment._id)}
+                    className="text-red-600 hover:text-red-800 flex items-center gap-2 px-3 py-1 rounded bg-red-100 hover:bg-red-200"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))
           ) : (
-            <p>No comments available.</p>
+            <p className="text-yellow-800">No comments available.</p>
           )}
         </div>
       </div>
     </div>
   );
 };
+
 
 export default AdminCommentsPage;
