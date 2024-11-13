@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Trash2 } from 'react-feather';  // Importing Trash2 icon
 
 const AdminCommentsPage = () => {
   const [comments, setComments] = useState([]);
@@ -47,7 +48,7 @@ const AdminCommentsPage = () => {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <h2 className="text-2xl font-semibold text-yellow-800">Comments</h2>
+      <h2 className="text-2xl font-serif text-yellow-800">Blog Comments</h2>
 
       {/* Error message */}
       {error && <p className="text-red-500">{error}</p>}
@@ -71,9 +72,10 @@ const AdminCommentsPage = () => {
                 <div className="flex justify-end mt-4">
                   <button
                     onClick={() => deleteComment(comment._id)}
-                    className="text-red-600 hover:text-red-800 flex items-center gap-2 px-3 py-1 rounded bg-red-100 hover:bg-red-200"
+                    className=" text-red-600 hover:text-red-800 flex items-top gap-2 px-4 py-1 rounded hover:bg-red-200"
                   >
-                    Delete
+                    <Trash2 size={20}  /> {/* Trash Icon */}
+                    
                   </button>
                 </div>
               </div>
