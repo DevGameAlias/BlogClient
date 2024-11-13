@@ -1,43 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import AdminReviews from './AdminReviews'; // Adjust the path if needed
 
 const AdminCommentsPage = () => {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   const [loadingComments, setLoadingComments] = useState(true);
 
-  // Fetch Comments for the Admin page
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch('http://localhost:3000/comments'); // API endpoint for comments
+        const response = await fetch('http://localhost:3000/comments');
         if (!response.ok) {
           throw new Error('Failed to fetch comments');
         }
         const data = await response.json();
-        setComments(data); // Update state with the fetched comments
+        setComments(data);
       } catch (error) {
-        console.error('Error fetching comments:', error);
-        setError('Failed to load comments, please try again later.');
+        setError('Failed to load comments');
       } finally {
         setLoadingComments(false);
       }
     };
 
     fetchComments();
-  }, []); // Fetch comments when component mounts
+  }, []);
+
+  const deleteComment = async (id) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this comment?');
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`http://localhost:3000/comments/${id}`, {
+          method: 'DELETE',
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to delete comment');
+        }
+
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment._id !== id)
+        );
+      } catch (error) {
+        setError('Failed to delete comment');
+      }
+    }
+  };
 
   return (
     <div className="admin-dashboard p-6">
-      <h1 className="text-3xl font-bold mb-6"></h1>
+      <h1 className="text-3xl font-bold mb-6">Comments Section</h1>
 
-      {/* Error handling */}
       {error && <p className="text-red-500">{error}</p>}
 
       <div className="flex flex-wrap gap-8">
-        {/* Left Section for Comments */}
         <div className="comments-section w-full lg:w-1/3">
-          <h2 className="text-2xl font-semibold mb-4">All Comments</h2>
           {loadingComments ? (
             <p>Loading comments...</p>
           ) : comments.length > 0 ? (
@@ -47,22 +62,21 @@ const AdminCommentsPage = () => {
                 <p className="text-sm text-gray-500 mt-2">
                   By: {comment.author} | {new Date(comment.createdAt).toLocaleDateString()}
                 </p>
+                <button
+                  onClick={() => deleteComment(comment._id)}
+                  className="mt-2 text-red-500 hover:text-red-700"
+                >
+                  Delete
+                </button>
               </div>
             ))
           ) : (
             <p>No comments available.</p>
           )}
         </div>
-
-        {/* Right Section for Reviews */}
-        <div className="reviews-section w-full lg:w-2/3">
-          <h2 className="text-2xl font-semibold mb-4">All Reviews</h2>
-          <AdminReviews /> {/* Component to show all reviews */}
-        </div>
       </div>
     </div>
   );
 };
 
-// Export should be at the bottom, outside of any function or block
 export default AdminCommentsPage;
