@@ -69,11 +69,11 @@ const HomePage = () => {
             alt="client provided image"
             className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full border-4 border-white shadow-lg mb-4"
           />
-          <h2 className="text-2xl font-serif font-semibold mb-4">About Us (Preview)</h2>
-          <p className="text-lg text-gray-700 mb-6">
+          <h2 className="text-2xl font-serif font-semibold mb-4">About Mike Ninnes </h2>
+          <p className="text-lg font-serif text-gray-700 mb-6">
           Mike, a retired Air Force vet, storyteller, and writer, has been published by Maryville University and founded the Washington Wordsmiths. Discover his journey—click to learn more!
           </p>
-          <Link to="/about" className="text-blue-600 hover:text-blue-800 font-semibold transition-all duration-200">
+          <Link to="/about" className="text-teal-600 hover:text-blue-800 font-semibold transition-all duration-200">
             Read More
           </Link>
         </div>
@@ -93,9 +93,9 @@ const HomePage = () => {
               <p className="text-lg text-gray-800">{blog.content.slice(0, 150)}...</p>
               <Link
                 to="/blogPage"
-                className="text-blue-600 hover:text-blue-800 mt-4 block text-center font-semibold transition-all duration-200"
+                className="text-teal-500 hover:text--800 mt-4 block text-center font-semibold transition-all duration-200"
               >
-                Read More
+                See  More
               </Link>
             </div>
           ))}
