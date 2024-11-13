@@ -46,8 +46,8 @@ const AdminCommentsPage = () => {
   };
 
   return (
-    <div className="admin-dashboard p-6">
-      <h1 className="text-3xl font-bold mb-6">Comments Section</h1>
+    <div className="container mx-auto p-4">
+      <h2 className="text-xl font-semibold text-gray-800">Comments Section</h2>
 
       {error && <p className="text-red-500">{error}</p>}
 
@@ -57,7 +57,7 @@ const AdminCommentsPage = () => {
             <p>Loading comments...</p>
           ) : comments.length > 0 ? (
             comments.map((comment) => (
-              <div key={comment._id} className="bg-white p-4 rounded-lg shadow-sm mt-4">
+              <div key={comment._id} className="bg-white-50 p-4 rounded-lg shadow-sm mt-4">
                 <p className="text-gray-800">{comment.body}</p>
                 <p className="text-sm text-gray-500 mt-2">
                   By: {comment.author} | {new Date(comment.createdAt).toLocaleDateString()}
