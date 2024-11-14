@@ -15,15 +15,15 @@ const Profile = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="grid grid-cols-2 gap-4">
+    <div className="mx-auto bg-amber-800 text-white transition-colors">
+      <div className="grid">
         {/* Left Column - Blog Section */}
-        <div className="space-y-4">
+        <div className="">
           <BlogForm onAddBlog={addBlog} />
-        </div>
+        
 
-        {/* Right Column - Story and Event Section */}
-        <div className="space-y-4">
+          {/* Right Column - Story and Event Section */}
+        
           <button 
             className="bg-amber-800 hover:bg-amber-900 text-white px-4 py-2 rounded transition-colors duration-200"
             onClick={() => setIsVisible(true)}
