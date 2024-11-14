@@ -15,7 +15,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="mx-auto bg-amber-800 text-white transition-colors">
+    <div className="mx-auto bg-amber-800 text-black transition-colors">
       <div className="grid">
         {/* Left Column - Blog Section */}
         <div className="">
@@ -25,8 +25,8 @@ const Profile = () => {
           {/* Right Column - Story and Event Section */}
         
           <button 
-            className="bg-amber-800 hover:bg-amber-900 text-white px-4 py-2 rounded transition-colors duration-200"
-            onClick={() => setIsVisible(true)}
+            className="bg-amber-800 hover:bg-amber-900 px-4 py-2 rounded transition-colors duration-200"
+            onClick={() => setIsVisible(true)} 
           >
             Create Story
           </button>
