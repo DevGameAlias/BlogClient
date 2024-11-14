@@ -1,11 +1,13 @@
 import { useState } from "react";
 
 const NewsletterForm = () =>{
-    const [email,SetEmail]=useState('')
+    const [email,setEmail]=useState('')
 
-    const EmailSubmit = async () =>{
-        const uRL= 'http://localhost:3000/signup'
-        const sensitive = email
+    const EmailSubmit = async (e) =>{
+        e.preventDefault()
+        console.log('eemailsubmit');
+        const uRL= 'http://localhost:3000/newsletter/signup'
+        
 
         try{
 
@@ -14,20 +16,26 @@ const NewsletterForm = () =>{
                 headers:{
                     'Content-type':'application/json',
                 },
-                body: JSON.stringify(sensitive)
+                body: JSON.stringify({email})
             })
 
-        }catch{
-
+            if(!response.ok){
+                console.log("Cannot Post Email");
+            }
+        }catch(error) {
+            console.error('An error occurred:', error);
         }
 
 
     }
     return(
         <>
-        <form >
-            <input type="text" placeholder="Type Email" className="bg-transparent border-amber-950"/>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        <form onSubmit={EmailSubmit}>
+            <input type="text" 
+            placeholder="Type Email"
+            value={email}
+            className="border-black bg-transparent p-2 rounded" onChange={(e)=>{setEmail(e.target.value)}}/>
+            <button type='submit' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Submit
             </button>
         </form>
