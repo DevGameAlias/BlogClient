@@ -30,15 +30,18 @@ const NewsletterForm = () =>{
     }
     return(
         <>
+        <div className="border-black p-2 rounded">
         <form onSubmit={EmailSubmit}>
             <input type="text" 
             placeholder="Type Email"
             value={email}
-            className="border-black bg-transparent p-2 rounded" onChange={(e)=>{setEmail(e.target.value)}}/>
+            className="border-black border-solid p-2 rounded" onChange={(e)=>{setEmail(e.target.value)}}/>
             <button type='submit' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Submit
             </button>
+            
         </form>
+        </div>
         </>
     )
 
