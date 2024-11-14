@@ -15,7 +15,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="mx-auto bg-amber-800 text-black transition-colors">
+    <div className="grid">
       <div className="grid">
         {/* Left Column - Blog Section */}
         <div className="">
@@ -23,17 +23,21 @@ const Profile = () => {
         
 
           {/* Right Column - Story and Event Section */}
-        
-          <button 
-            className="bg-amber-800 hover:bg-amber-900 px-4 py-2 rounded transition-colors duration-200"
-            onClick={() => setIsVisible(true)} 
-          >
-            Create Story
-          </button>
-          
-          <div className="event-creation">
-            <EventCreation />
+          <div className="grid bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100">
+
+            <button 
+              className="px-4 py-2 rounded transition-colors"
+              onClick={() => setIsVisible(true)} 
+            >
+              Create Story
+            </button>
+            
+            <div className="event-creation">
+              <EventCreation />
+            </div>
+
           </div>
+
         </div>
       </div>
 
