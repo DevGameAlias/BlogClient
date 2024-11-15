@@ -11,26 +11,18 @@ import AppLayout from "./appLayout/AppLayout";
 import Profile from "./pages/Profile";
 import AboutPage from "./pages/AboutPage";
 import Login from "./components/Login";
-
-
-
-
-
-
+import StoryPage from "./pages/storypage.js";
 import ScrollToTop from "./components/ScrollToTop";
-
-
-import BlogListButton from './components/BlogListButton'; // Make sure this path matches your file structure
-import BlogList from './pages/BlogList';
+import BlogListButton from "./components/BlogListButton"; // Make sure this path matches your file structure
+import BlogList from "./pages/BlogList";
 import StoryCreation from "./components/StoryCreation.js";
 import HomePage from "./pages/Home";
 import AdminReviewComment from './pages/AdminReviewComment.js';
-
 import BlogPage from "./pages/BlogPage";
-
-import StoryList from './components/StoryList'; // Import the new StoryList component
+import StoryList from "./components/StoryList"; // Import the new StoryList component
 import StoryDelete from "./pages/DeleteStory2";
 import EventsPage from "./pages/Events.js";
+
 import ProtectedRoute from "./components/ProtectedRoute.js";// Component to protect admin routes
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -54,15 +46,14 @@ const router = createBrowserRouter(createRoutesFromElements(
 ));
 
 
+
 function App() {
   return (
     <RouterProvider router={router}>
       {/* ScrollToTop should be here to listen for route changes */}
       <ScrollToTop />
-
     </RouterProvider>
   );
-
 }
 
 export default App;
