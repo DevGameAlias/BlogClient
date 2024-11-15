@@ -52,11 +52,7 @@ const CommentSection = ({ blogId }) => {
       author: author,
       blogId: blogId,
     };
-    console.log(newCommentData);
-    // Optimistically add the new comment
-    setComments((prevComments) => [...prevComments, newCommentData]);
-    setNewComment(""); // Reset the comment input
-
+   
     try {
       const response = await fetch(`http://localhost:3000/comments`, {
         method: 'POST',
@@ -70,8 +66,12 @@ const CommentSection = ({ blogId }) => {
         throw new Error('Failed to submit comment');
       }
 
-      const updatedComment = await response.json();
-      setComments((prevComments) => [...prevComments, updatedComment]);
+      // Only add the comment to the list once it has been successfully saved to the server
+      const savedComment = await response.json();
+
+      setComments((prevComments) => [...prevComments, savedComment]);
+      setNewComment("") // reset the comment input
+      setAuthor(""); // reset the comment input
     } catch (error) {
       console.error('Error submitting comment:', error);
       setError("Failed to post comment, please try again.");
