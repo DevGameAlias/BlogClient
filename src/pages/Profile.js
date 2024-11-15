@@ -25,10 +25,16 @@ const Profile = () => {
         <div className="grid bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100">
           <BlogForm onAddBlog={addBlog} />
           <button 
-            className="grid bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100"
+            className="grid bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100" 
             onClick={() => navigate('/bloglist')}
           >
             Go to BlogList
+          </button>
+          <button 
+            className="grid bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100" 
+            onClick={() => navigate('/adminReviewComment')}
+          >
+            Review Comments
           </button>
 
           {/* Right Column - Story and Event Section */}
