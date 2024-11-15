@@ -1,7 +1,9 @@
+
 import React, {  useState } from "react";
 import { NavLink ,useNavigate} from "react-router-dom";
 import BlogForm from './BlogForm';
 import BlogList from "./BlogList.js";
+
 import StorySubmit from "./SubmitStory";
 import EventCreation from "../components/EventCreation.js";
 import StoryCreation from "../components/StoryCreation.js";
@@ -16,6 +18,7 @@ const Profile = () => {
   };
 
   return (
+
     <div className="grid">
       <div className="grid">
         {/* Left Column - Blog Section */}
@@ -56,6 +59,7 @@ const Profile = () => {
         </div>
       )}
     </div>
+
   );
 };
 

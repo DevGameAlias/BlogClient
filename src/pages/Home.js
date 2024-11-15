@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import clientImage from '../assets/MikeN.png'; 
+import NewsletterForm from '../components/Newsletter';
 
 const HomePage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -101,6 +102,10 @@ const HomePage = () => {
           ))}
         </div>
       </section>
+
+      <div>
+        <NewsletterForm/>
+      </div>
 
     </div>
   );
