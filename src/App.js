@@ -40,6 +40,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/profile" element={<ProtectedRoute ><Profile /> </ProtectedRoute>} />
     <Route path="/storycreation" element={<StoryCreation />}/>
     <Route path="/adminReviewComment" element={<AdminReviewComment />} />
+    <Route path="/storyPage" element={<StoryPage />} />
 
 
   </Route>
