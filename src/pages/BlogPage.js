@@ -51,6 +51,7 @@ const BlogPage = () => {
   return (
 
     <div className="min-h-screen bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 flex flex-col justify-center items-center pt-12 pb-12">
+      <h1 className="text-3xl font-serif font-bold text-center mb-5">Welcome to the Blog Page</h1>
       <div className="w-full max-w-6xl px-4">
         {error && <p className="text-red-500 text-center">{error}</p>}
 
@@ -79,6 +80,8 @@ const BlogPage = () => {
           </div>
         ) : (
           <div className="flex flex-wrap justify-center gap-8">
+           <h1 className="text-3xl font-bold text-center mb-5"></h1>
+
             {blogs.map((blog) => (
               <div
                 key={blog._id}
