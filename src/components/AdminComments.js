@@ -6,16 +6,18 @@ const AdminCommentsPage = () => {
   const [error, setError] = useState(null);
   const [loadingComments, setLoadingComments] = useState(true);
 
+  // Fetch all comments when the component is mounted
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch('http://localhost:3000/comments');
+        const response = await fetch(`http://localhost:3000/comments/all`);
         if (!response.ok) {
           throw new Error('Failed to fetch comments');
         }
         const data = await response.json();
-        setComments(data);
+        setComments(data);  // Set the comments state
       } catch (error) {
+        console.log(error)
         setError('Failed to load comments');
       } finally {
         setLoadingComments(false);
