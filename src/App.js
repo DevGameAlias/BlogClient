@@ -17,10 +17,10 @@ import BlogListButton from "./components/BlogListButton"; // Make sure this path
 import BlogList from "./pages/BlogList";
 import StoryCreation from "./components/StoryCreation.js";
 import HomePage from "./pages/Home";
-import AdminReviewComment from './pages/AdminReviewComment.js';
+import AdminReviewComment from './pages/AdminReviewComment';
 import BlogPage from "./pages/BlogPage";
 import EventsPage from "./pages/Events.js";
-
+import storyReview from "./components/AdminReviews"
 import ProtectedRoute from "./components/ProtectedRoute.js";// Component to protect admin routes
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -36,8 +36,10 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/storylist" element={<StoryPage />}/>
       <Route path="/events" element={<EventsPage />} />
     <Route path="/profile" element={<ProtectedRoute ><Profile /> </ProtectedRoute>} />
-    <Route path="/storycreation" element={<ProtectedRoute > <StoryCreation /> </ProtectedRoute>}/>
-    <Route path="/adminReviewComment" element={<ProtectedRoute ><AdminReviewComment /> </ProtectedRoute>} />
+    <Route path="/storycreation" element={<StoryCreation />}/>
+    <Route path="/adminReviewComment" element={<AdminReviewComment />} />
+    <Route path="/storyPage" element={<StoryPage />} />
+    
 
 
   </Route>

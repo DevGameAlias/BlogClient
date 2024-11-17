@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Trash2 } from 'react-feather';  // Importing Trash2 icon
+import { Trash2 } from 'react-feather';
 
-const AdminReviews = () => {
+const AdminReviews = ({ storyId }) => { // Accept storyId as a prop
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -9,27 +9,30 @@ const AdminReviews = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch('http://localhost:3000/storyReview');
+        const response = await fetch(`http://localhost:3000/storyReview`);
+        
+        // Check if response is successful
         if (!response.ok) {
           throw new Error('Failed to fetch reviews');
         }
+
         const data = await response.json();
-        setReviews(data); 
+        setReviews(data); // Set the reviews data
       } catch (error) {
-        setError('Failed to load reviews');
+        setError(error.message || 'Failed to load reviews');
       } finally {
         setLoading(false);
       }
     };
 
     fetchReviews();
-  }, []);
+  }, [storyId]); // Re-run when storyId changes
 
   const deleteReview = async (id) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this review?');
     if (confirmDelete) {
       try {
-        const response = await fetch(`http://localhost:3000/storyReview/${id}`, {
+        const response = await fetch(`http://localhost:5000/storyReview/${id}`, {
           method: 'DELETE',
         });
 
@@ -55,7 +58,6 @@ const AdminReviews = () => {
 
       {/* Reviews List */}
       <div className="flex flex-wrap gap-4">
-        {/* Full Width Container for Reviews */}
         <div className="w-full">
           {loading ? (
             <p className="text-yellow-800">Loading reviews...</p>
@@ -76,7 +78,6 @@ const AdminReviews = () => {
                     className=" text-red-600 hover:text-red-800 flex items-top gap-2 px-4 py-1 rounded hover:bg-red-200"
                   >
                     <Trash2 size={20}  /> {/* Trash Icon */}
-                    
                   </button>
                 </div>
               </div>

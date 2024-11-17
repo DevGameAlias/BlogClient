@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminReviews from '../components/AdminReviews';  // Import the AdminReviews component
-import AdminComments from '../components/AdminComments';  // Import the AdminComments component
+import AdminComments from '../components/AdminComments';  // Import AdminComments component
+import AdminReviews from '../components/AdminReviews';    // Import AdminReviews component
 
 const AdminReviewComment = () => {
   return (
