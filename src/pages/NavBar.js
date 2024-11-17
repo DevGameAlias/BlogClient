@@ -23,7 +23,7 @@ const NavBar = () => {
             <NavLink to="/blogPage" className="text-orange-100 hover:text-blue-500">
               Blog
             </NavLink>
-            <NavLink to="/storylist" className="text-orange-100 hover:text-blue-500">
+            <NavLink to="/storypage" className="text-orange-100 hover:text-blue-500">
               Story List
             </NavLink>
             <NavLink to="/events" className="text-orange-100 hover:text-blue-500">

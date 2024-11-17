@@ -4,7 +4,7 @@ const StoryCreation = ({setIsVisible}) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [description, setDescription] = useState("");
-  const [author,setAuthor]= useState()
+  const [author,setAuthor]= useState("")
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
