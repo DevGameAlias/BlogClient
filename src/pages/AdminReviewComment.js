@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminComments from '../components/AdminComments';  // Import AdminComments component
-import AdminReviews from '../components/AdminReviews';    // Import AdminReviews component
+//import AdminReviews from '../components/AdminReviews';    // Import AdminReviews component
 
 const AdminReviewComment = () => {
   return (
@@ -16,10 +16,10 @@ const AdminReviewComment = () => {
         </div>
 
         {/* Right Section for Reviews */}
-        <div className="w-full lg:w-1/2 p-4 rounded-lg shadow-lg">
+        {/* <div className="w-full lg:w-1/2 p-4 rounded-lg shadow-lg">
           <h2 className="text-2xl font-semibold mb-4"></h2>
-          <AdminReviews /> {/* Render the AdminReviews component */}
-        </div>
+          <AdminReviews /> {/* Render the AdminReviews component 
+        </div> */}
       </div>
     </div>
   );
