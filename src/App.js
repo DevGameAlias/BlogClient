@@ -19,27 +19,26 @@ import StoryCreation from "./components/StoryCreation.js";
 import HomePage from "./pages/Home";
 import AdminReviewComment from './pages/AdminReviewComment';
 import BlogPage from "./pages/BlogPage";
-import StoryList from "./components/StoryList"; // Import the new StoryList component
-import StoryDelete from "./pages/DeleteStory2";
 import EventsPage from "./pages/Events.js";
 import storyReview from "./components/AdminReviews"
 import ProtectedRoute from "./components/ProtectedRoute.js";// Component to protect admin routes
+import StoryList from "./components/StoryList.js";
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<AppLayout />}>
 
 
-    <Route path="/blogList" element={<BlogList />} />   
+    <Route path="/blogList" element={<ProtectedRoute ><BlogList /></ProtectedRoute>} />   
     <Route path="/blogCreation" element={<ProtectedRoute ><Profile /> </ProtectedRoute>} />
     <Route path="/" element={<HomePage />} />
     <Route path="/blogPage" element={<BlogPage />} />
     <Route path="/about" element={<AboutPage />} />
     <Route path="/login" element={<Login />}/>
-    <Route path="/storylist" element={<StoryList />}/>
+    <Route path="/storylist" element={<ProtectedRoute ><StoryList /></ProtectedRoute>}/>
       <Route path="/events" element={<EventsPage />} />
     <Route path="/profile" element={<ProtectedRoute ><Profile /> </ProtectedRoute>} />
     <Route path="/storycreation" element={<StoryCreation />}/>
-    <Route path="/adminReviewComment" element={<AdminReviewComment />} />
+    <Route path="/adminReviewComment" element={<ProtectedRoute ><AdminReviewComment /></ProtectedRoute>} />
     <Route path="/storyPage" element={<StoryPage />} />
     
 

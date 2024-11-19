@@ -9,8 +9,10 @@ const StoryPage = () => {
     try {
       const response = await fetch("http://localhost:3000/stories");
       const data = await response.json();
-      console.log("logging stories", data); // Log stories to ensure data is fetched correctly
-      setStories(data);
+      console.log("logging stories", data);   
+      // Sort stories by createdAt date in descending order
+      const sortedStories = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setStories(sortedStories);
     } catch (error) {
       console.log("Failed to fetch stories", error);
     }
