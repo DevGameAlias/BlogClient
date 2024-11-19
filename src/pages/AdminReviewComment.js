@@ -4,7 +4,7 @@ import AdminReviews from '../components/AdminReviews';    // Import AdminReviews
 
 const AdminReviewComment = () => {
   return (
-    <div className="admin-dashboard bg-white ">
+    <div className="admin-dashboard bg-while ">
       <h1 className="text-3xl text-yellow-950 text-center font-bold mb-6"></h1>
 
       {/* Flexbox container to arrange Comments and Reviews side by side */}

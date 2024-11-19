@@ -10,7 +10,7 @@ const NavBar = () => {
         <div className="flex justify-between items-center py-4 ">
           <div className="font-serif text-xl text-orange-100 font-bold">
             {/* Name of website */}
-            <h2>Mike Ninness</h2>
+            <h2>Story Sphere</h2>
           </div>
           {/* Space between navigation links */}
           <div className="space-x-4">
