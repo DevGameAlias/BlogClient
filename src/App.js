@@ -17,12 +17,12 @@ import BlogListButton from "./components/BlogListButton"; // Make sure this path
 import BlogList from "./pages/BlogList";
 import StoryCreation from "./components/StoryCreation.js";
 import HomePage from "./pages/Home";
-import AdminReviewComment from './pages/AdminReviewComment.js';
+import AdminReviewComment from './pages/AdminReviewComment';
 import BlogPage from "./pages/BlogPage";
 import StoryList from "./components/StoryList"; // Import the new StoryList component
 import StoryDelete from "./pages/DeleteStory2";
 import EventsPage from "./pages/Events.js";
-
+import storyReview from "./components/AdminReviews"
 import ProtectedRoute from "./components/ProtectedRoute.js";// Component to protect admin routes
 
 const router = createBrowserRouter(createRoutesFromElements(
@@ -40,6 +40,8 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path="/profile" element={<ProtectedRoute ><Profile /> </ProtectedRoute>} />
     <Route path="/storycreation" element={<StoryCreation />}/>
     <Route path="/adminReviewComment" element={<AdminReviewComment />} />
+    <Route path="/storyPage" element={<StoryPage />} />
+    
 
 
   </Route>
