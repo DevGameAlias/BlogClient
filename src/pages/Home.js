@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import clientImage from '../assets/MikeN.png'; 
 import NewsletterForm from '../components/Newsletter';
+import "../pages/Home";
 
 const HomePage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -37,7 +38,7 @@ const HomePage = () => {
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-r from-orange-100 via-orange-200 to-orange-100 p-6 transition-all duration-1000">
 
       {/* Book Section */}
-      <section className="w-full max-w-4xl bg-white p-8 mb-12 transform hover:scale-105 hover:shadow-2xl rounded-lg shadow-lg transition-all duration-300 ease-in-out">
+      <section className="w-full max-w-4xl bg-white p-8 mb-12 rounded-lg shadow-lg transition-all duration-300 ease-in-out book-card">
         <h1 className="text-4xl font-serif font-bold text-center mb-6">{book.title}</h1>
 
         <div className="flex justify-center mb-6">
@@ -63,12 +64,12 @@ const HomePage = () => {
       </section>
 
       {/* About Section */}
-      <section className="w-full max-w-4xl bg-orange-300 p-8 transform hover:scale-105 hover:shadow-2xl rounded-lg shadow-lg mb-12 transition-all duration-300 ease-in-out">
+      <section className="w-full max-w-4xl bg-orange-300 p-8 rounded-lg shadow-lg mb-12 transition-all duration-300 ease-in-out about-card">
         <div className="flex flex-col items-center">
           <img
             src={clientImage}
             alt="client provided image"
-            className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full border-4 border-white shadow-lg mb-4"
+            className="w-full h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-full border-4 border-white shadow-lg mb-4"
           />
           <h2 className="text-2xl font-serif font-semibold mb-4">About Mike Ninnes </h2>
           <p className="text-lg font-serif text-gray-700 mb-6">
