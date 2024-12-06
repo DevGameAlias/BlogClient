@@ -1,0 +1,35 @@
+/* App.css */
+
+/* Animation for Book card from left to center */
+@keyframes slideInLeft {
+    0% {
+      transform: translateX(-50%); /* Start off-screen to the left */
+      opacity: 0; /* Make it invisible */
+    }
+    100% {
+      transform: translateX(0%); /* Stop at the middle */
+      opacity: 1; /* Make it fully visible */
+    }
+  }
+  
+  /* Animation for About card from right to center */
+  @keyframes slideInRight {
+    0% {
+      transform: translateX(50%); /* Start off-screen to the right */
+      opacity: 0; /* Make it invisible */
+    }
+    100% {
+      transform: translateX(0); /* Stop at the middle */
+      opacity: 1; /* Make it fully visible */
+    }
+  }
+  
+  /* Optional: Add animation classes */
+  .book-card {
+    animation: slideInLeft 1.5s ease-out forwards;
+  }
+  
+  .about-card {
+    animation: slideInRight 1.5s ease-out forwards;
+  }
+  
